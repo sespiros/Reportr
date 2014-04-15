@@ -1,0 +1,6 @@
+-------------------- Login subsystem
+- Forked php-login-advanced, stripped email verification, password resets, its custom captcha
+- Gravatar support YEEE!!
+- Refactored the whole project in a MVC-like way
+- changed sql definitions in table web_users
+- Added sample edit user details form and register form

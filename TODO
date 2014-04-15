@@ -1,6 +1,14 @@
 ---------------------    FRONTEND   -------------------------
-+ (  ) User landing page
-+ (  ) User report list
-+ (  ) User file a report (a modal maybe?)
-+ (  ) Administrator landing page
-+ (!!) Administrator Dashboard  
++ (DONE) User landing page
++ (    ) User report list
++ (    ) User file a report (a modal maybe?)
++ (    ) Administrator landing page
++ (!!!!) Administrator Dashboard  
+
+
+
+
+-------------------   LOGIN SUBSYSTEM    ---------------------
++ (    ) Fix bug with remember me session cookie
++ (    ) Add reCaptcha
++ (    ) Add warnings and messages informing user about failed to login etc
