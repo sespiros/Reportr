@@ -20,35 +20,47 @@
     <![endif]-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="js/initmap.js"></script>
+    <script type="text/JavaScript" src="js/sha512.js"></script> 
+    <script type="text/JavaScript" src="js/forms.js"></script> 
   </head>
   <body>
     <header>
-        <nav class="navbar navbar-inverse">
-            <div class="container">
-                <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Reportr</a>
-                </div>
-
-                <div class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right" role="form">
-                    <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                    </div>
-                    <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-success">Sign in</button>
-                    <button class="btn">Register</button>
-                </form>
-                </div><!--/.navbar-collapse -->
-
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Reportr</a>
             </div>
+
+            <div class="collapse navbar-collapse" id="main-nav">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                    <ul class="dropdown-menu" style="padding:17px; min-width:300px;">
+                        <form class="form" method="post" action="includes/process_login.php" name="login_form">
+                            <div class="form-group">
+                            <input type="text" placeholder="Email" class="form-control" name="email">
+                            </div>
+                            <div class="form-group">
+                            <input type="password" placeholder="Password" class="form-control" name="password">
+                            </div>
+                            <label class="checkbox">
+                                <input type="checkbox" value="remember-me"> Remember me </input> 
+                            </label>
+                            <a class="btn" href="#">Register</a>
+                            <button type="submit" class="btn btn-primary pull-right" onclick="formhash(this.form, this.form.password)" >Login</button>
+                        </form>
+                    </ul>
+                </li>
+            </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
         </nav>
     </header>
 
