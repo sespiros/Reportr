@@ -26,6 +26,13 @@
                             <div class="form-group">
                             <input type="password" placeholder="Password" class="form-control" id="user_password" name="user_password">
                             </div>
+                            <div class="form-group fix">
+                                <?php
+                                //require_once('/opt/lampp/htdocs/reportr/libraries/recaptchalib.php');
+                                //$publickey = "6LfM3PESAAAAANjOP00eJDS1h2ScuONJrXjXJFqn"; // you got this from the signup page
+                                //echo recaptcha_get_html($publickey);
+                                //?>    
+                            </div>
                             <label class="checkbox">
                                 <input type="checkbox" id="user_rememberme" name="user_rememberme" value="1"> Remember me </input> 
                             </label>

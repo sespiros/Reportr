@@ -134,7 +134,7 @@ class Login
                 $this->db_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
                 return true;
             } catch (PDOException $e) {
-                $this->errors[] = MESSAGE_DATABASE_ERROR . $e->getMessage();
+                $this->errors[] = "DATABASE ERROR: " . $e->getMessage();
             }
         }
         // default return
@@ -221,7 +221,7 @@ class Login
             }
             // A cookie has been used but is not valid... we delete it
             $this->deleteRememberMeCookie();
-            $this->errors[] = MESSAGE_COOKIE_INVALID;
+            $this->errors[] = "Invalid cookie";
         }
         return false;
     }
@@ -234,10 +234,23 @@ class Login
      */
     private function loginWithPostData($user_name, $user_password, $user_rememberme)
     {
+       //require_once('/opt/lampp/htdocs/reportr/libraries/recaptchalib.php');
+       //$privatekey = "6LfM3PESAAAAAEA8Op5uZwBPG5tteLYgfmO7kRWA";
+       //$resp = recaptcha_check_answer ($privatekey,
+                    //$_SERVER["REMOTE_ADDR"],
+                    //$_POST["recaptcha_challenge_field"],
+                    //$_POST["recaptcha_response_field"]);
+ 
+        //if (!$resp->is_valid) {
+        //// What happens when the CAPTCHA was entered incorrectly
+            //$this->errors[] = "Incorrect captcha" ;
+        //} else {
+        //// Your code here to handle a successful verification
+
         if (empty($user_name)) {
-            $this->errors[] = MESSAGE_USERNAME_EMPTY;
+            $this->errors[] = "Username/Email cannot be empty";
         } else if (empty($user_password)) {
-            $this->errors[] = MESSAGE_PASSWORD_EMPTY;
+            $this->errors[] = "Password cannot be empty";
 
         // if POST data (from login form) contains non-empty user_name and non-empty user_password
         } else {
@@ -261,9 +274,9 @@ class Login
             if (! isset($result_row->user_id)) {
                 // was MESSAGE_USER_DOES_NOT_EXIST before, but has changed to MESSAGE_LOGIN_FAILED
                 // to prevent potential attackers showing if the user exists
-                $this->errors[] = MESSAGE_LOGIN_FAILED;
-            } else if (($result_row->user_failed_logins >= 3) && ($result_row->user_last_failed_login > (time() - 30))) {
-                $this->errors[] = MESSAGE_PASSWORD_WRONG_3_TIMES;
+                $this->errors[] = "Invalid username or password";
+            } else if (($result_row->user_failed_logins >= 2) && ($result_row->user_last_failed_login > (time() - 30))) {
+                    $this->errors[] = "Slow down dude";
 
             // using PHP 5.5's password_verify() function to check if the provided passwords fits to the hash of that user's password
             } else if (! password_verify($user_password, $result_row->user_password_hash)) {
@@ -273,7 +286,7 @@ class Login
                         . 'WHERE user_name = :user_name OR user_email = :user_name');
                 $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => time()));
 
-                $this->errors[] = MESSAGE_LOGIN_FAILED;
+                $this->errors[] = "Invalid username or password";
             } else {
                 // write user data into PHP SESSION [a file on your server]
                 $_SESSION['user_id'] = $result_row->user_id;
@@ -327,7 +340,7 @@ class Login
                 }
             }
         }
-    }
+    }//}
 
     /**
      * Create all data needed for remember me cookie connection on client and server side
@@ -374,7 +387,10 @@ class Login
      */
     public function doLogout()
     {
-        $this->deleteRememberMeCookie();
+        //check if cookie exists fixes bug caused when testing on localhost ;)
+        if(isset($_COOKIE['rememberme'])) {
+            $this->deleteRememberMeCookie();
+        }
 
         $_SESSION = array();
         session_destroy();
@@ -401,19 +417,19 @@ class Login
         $user_name = substr(trim($user_name), 0, 64);
 
         if (!empty($user_name) && $user_name == $_SESSION['user_name']) {
-            $this->errors[] = MESSAGE_USERNAME_SAME_LIKE_OLD_ONE;
+            $this->errors[] = "New and old username are the same";
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
         // TODO: maybe this pattern should also be implemented in Registration.php (or other way round)
         } elseif (empty($user_name) || !preg_match("/^(?=.{2,64}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/", $user_name)) {
-            $this->errors[] = MESSAGE_USERNAME_INVALID;
+            $this->errors[] = "Invalid Username. Must be azAZ09 and between 2-64 characters";
 
         } else {
             // check if new username already exists
             $result_row = $this->getUserData($user_name);
 
             if (isset($result_row->user_id)) {
-                $this->errors[] = MESSAGE_USERNAME_EXISTS;
+                $this->errors[] = "This username already exists";
             } else {
                 // write user's new data into database
                 $query_edit_user_name = $this->db_connection->prepare('UPDATE web_users SET user_name = :user_name WHERE user_id = :user_id');
@@ -423,9 +439,9 @@ class Login
 
                 if ($query_edit_user_name->rowCount()) {
                     $_SESSION['user_name'] = $user_name;
-                    $this->messages[] = MESSAGE_USERNAME_CHANGED_SUCCESSFULLY . $user_name;
+                    $this->messages[] = "Username changed successfully" . $user_name;
                 } else {
-                    $this->errors[] = MESSAGE_USERNAME_CHANGE_FAILED;
+                    $this->errors[] = "Username change failed";
                 }
             }
         }
@@ -440,10 +456,10 @@ class Login
         $user_email = substr(trim($user_email), 0, 64);
 
         if (!empty($user_email) && $user_email == $_SESSION["user_email"]) {
-            $this->errors[] = MESSAGE_EMAIL_SAME_LIKE_OLD_ONE;
+            $this->errors[] = "New and old email are the same";
         // user mail cannot be empty and must be in email format
         } elseif (empty($user_email) || !filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = MESSAGE_EMAIL_INVALID;
+            $this->errors[] = "Invalid email format";
 
         } else if ($this->databaseConnection()) {
             // check if new email already exists
@@ -455,7 +471,7 @@ class Login
 
             // if this email exists
             if (isset($result_row->user_id)) {
-                $this->errors[] = MESSAGE_EMAIL_ALREADY_EXISTS;
+                $this->errors[] = "Email address already exists";
             } else {
                 // write users new data into database
                 $query_edit_user_email = $this->db_connection->prepare('UPDATE web_users SET user_email = :user_email WHERE user_id = :user_id');
@@ -465,9 +481,9 @@ class Login
 
                 if ($query_edit_user_email->rowCount()) {
                     $_SESSION['user_email'] = $user_email;
-                    $this->messages[] = MESSAGE_EMAIL_CHANGED_SUCCESSFULLY . $user_email;
+                    $this->messages[] = "Email changed successfully" . $user_email;
                 } else {
-                    $this->errors[] = MESSAGE_EMAIL_CHANGE_FAILED;
+                    $this->errors[] = "Email change failed";
                 }
             }
         }

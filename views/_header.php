@@ -25,16 +25,16 @@
 
 <?php
 // show potential errors / feedback (from login object)
-//if (isset($login)) {
-    //if ($login->errors) {
-        //foreach ($login->errors as $error) {
-            //echo $error;
-        //}
-    //}
-    //if ($login->messages) {
-        //foreach ($login->messages as $message) {
-            //echo $message;
-        //}
-    //}
-//}
+if (isset($login)) {
+    if ($login->errors) {
+        foreach ($login->errors as $error) {
+            echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+        }
+    }
+    if ($login->messages) {
+        foreach ($login->messages as $message) {
+            echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+        }
+    }
+}
 ?>

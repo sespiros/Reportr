@@ -9,6 +9,8 @@
 
 
 -------------------   LOGIN SUBSYSTEM    ---------------------
-+ (    ) Fix bug with remember me session cookie
-+ (    ) Add reCaptcha
-+ (    ) Add warnings and messages informing user about failed to login etc
++ (DONE) Fix bug with remember me session cookie
++ (MEEH) Add reCaptcha (Added reCaptcha functionality in comments but not yet fully supported)
++ (DONE) Add warnings and messages informing user about failed to login etc
++ (    ) Add proper registration form
++ (    ) Add proper edit form

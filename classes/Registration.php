@@ -65,7 +65,7 @@ class Registration
                 return true;
             // If an error is catched, database connection failed
             } catch (PDOException $e) {
-                $this->errors[] = MESSAGE_DATABASE_ERROR;
+                $this->errors[] = "Database error";
                 return false;
             }
         }
@@ -84,23 +84,23 @@ class Registration
         // check provided data validity
         // TODO: check for "return true" case early, so put this first
         if (empty($user_name)) {
-            $this->errors[] = MESSAGE_USERNAME_EMPTY;
+            $this->errors[] = "Username field cannot be empty";
         } elseif (empty($user_password) || empty($user_password_repeat)) {
-            $this->errors[] = MESSAGE_PASSWORD_EMPTY;
+            $this->errors[] = "Password field cannot be empty";
         } elseif ($user_password !== $user_password_repeat) {
-            $this->errors[] = MESSAGE_PASSWORD_BAD_CONFIRM;
+            $this->errors[] = "Repeat password is not the same";
         } elseif (strlen($user_password) < 6) {
-            $this->errors[] = MESSAGE_PASSWORD_TOO_SHORT;
+            $this->errors[] = "Password is too short";
         } elseif (strlen($user_name) > 64 || strlen($user_name) < 2) {
-            $this->errors[] = MESSAGE_USERNAME_BAD_LENGTH;
+            $this->errors[] = "Username bad length";
         } elseif (!preg_match('/^[a-z\d]{2,64}$/i', $user_name)) {
-            $this->errors[] = MESSAGE_USERNAME_INVALID;
+            $this->errors[] = "Invalid Username. Username must be between 6-24 characters a-z";
         } elseif (empty($user_email)) {
-            $this->errors[] = MESSAGE_EMAIL_EMPTY;
+            $this->errors[] = "Email field empty";
         } elseif (strlen($user_email) > 64) {
-            $this->errors[] = MESSAGE_EMAIL_TOO_LONG;
+            $this->errors[] = "Email address too long";
         } elseif (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = MESSAGE_EMAIL_INVALID;
+            $this->errors[] = "Invalid email address";;
 
         // finally if all the above checks are ok
         } else if ($this->databaseConnection()) {
@@ -115,7 +115,7 @@ class Registration
             // TODO: this is really awful!
             if (count($result) > 0) {
                 for ($i = 0; $i < count($result); $i++) {
-                    $this->errors[] = ($result[$i]['user_name'] == $user_name) ? MESSAGE_USERNAME_EXISTS : MESSAGE_EMAIL_ALREADY_EXISTS;
+                    $this->errors[] = ($result[$i]['user_name'] == $user_name) ? "Username is taken" : "This email address is already registered";
                 }
             } else {
                 // check if we have a constant HASH_COST_FACTOR defined (in config/hashing.php),
@@ -140,7 +140,7 @@ class Registration
 
 
                 $this->verification_successful = true;
-                $this->messages[] = MESSAGE_REGISTRATION_ACTIVATION_SUCCESSFUL;
+                $this->messages[] = "Registration successfull!";
             }
         }
     }

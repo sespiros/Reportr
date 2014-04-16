@@ -4,3 +4,6 @@
 - Refactored the whole project in a MVC-like way
 - changed sql definitions in table web_users
 - Added sample edit user details form and register form
+
+
+- Merged error functionality of php-login with bootstrap alerts 

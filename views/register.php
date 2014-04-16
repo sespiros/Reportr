@@ -35,12 +35,12 @@
 if (isset($registration)) {
     if ($registration->errors) {
         foreach ($registration->errors as $error) {
-            echo $error;
+            echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
         }
     }
     if ($registration->messages) {
         foreach ($registration->messages as $message) {
-            echo $message;
+            echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
         }
     }
 }
