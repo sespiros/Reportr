@@ -40,6 +40,16 @@ header p
     padding: 10px;
 }
 
+.dropdown-login {
+    padding:17px;
+     min-width:300px;
+}
+
+.navbar .user-img {
+    padding-top: 9px;
+    font-size: 14px;
+}
+
 .popup {    
     padding: 15px;
     margin-bottom: 0px;

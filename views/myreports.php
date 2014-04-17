@@ -16,8 +16,8 @@
 
             <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="#">Incident Map</a></li>
-                <li><a href="myreports.php">My Reports</a></li>
+                <li><a href="index.php">Incident Map</a></li>
+                <li class="active"><a href="#">My Reports</a></li>
                 <li><a href="newreport.php">New Report</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -35,4 +35,16 @@
         </nav>
     </header>
 
-<?php include('_footer.php'); ?>
+    <footer>
+        <div class="container">
+            <h1 class="hidden">Footer</h1>
+            <p class="text-muted">&copy Copyright 2013.</p>
+        </div>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="views/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -18,7 +18,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
-                    <ul class="dropdown-menu" style="padding:17px; min-width:300px;">
+                    <ul class="dropdown-menu dropdown-login">
                         <form class="form" method="post" action="index.php" name="loginform">
                             <div class="form-group">
                             <input type="text" placeholder="Email" class="form-control" id="user_email" name="user_email">

@@ -525,11 +525,21 @@ class Login
         $this->user_gravatar_image_url = $url;
 
         // build img tag around
-        $url = '<img src="' . $url . '"';
-        foreach ($atts as $key => $val)
-            $url .= ' ' . $key . '="' . $val . '"';
-        $url .= ' />';
+        //$url = '<img src="' . $url . '"';
+        //foreach ($atts as $key => $val)
+            //$url .= ' ' . $key . '="' . $val . '"';
+        //$url .= ' />';
 
+        // build circular css style around the image with shadow :D
+        $url = '<img style="
+            border-radius: 150px;
+            -webkit-border-radius: 150px;
+            -moz-border-radius: 150px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+            -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+            -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+            " src="' . $url .'" />';
+        
         // the image url like above but with an additional <img src .. /> around
         $this->user_gravatar_image_tag = $url;
     }

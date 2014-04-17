@@ -14,3 +14,9 @@
 + (DONE) Add warnings and messages informing user about failed to login etc
 + (    ) Add proper registration form
 + (    ) Add proper edit form
+
+
+
+------------------------- GENERAL ----------------------------
++ (    ) Make notifications temporary without x button
++ (!!!!) When changing pages, tag remains on url and refreshing the page prompts user to repeat the action 
