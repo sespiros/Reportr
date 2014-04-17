@@ -19,6 +19,11 @@
                 <li><a href="index.php">Incident Map</a></li>
                 <li class="active"><a href="#">My Reports</a></li>
                 <li><a href="newreport.php">New Report</a></li>
+
+<?php if ($login->isUserAdmin() == true) {
+    echo '<li><a href="dashboard.php">Dashboard</a></li>';
+}?>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

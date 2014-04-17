@@ -1,22 +1,25 @@
 ---------------------    FRONTEND   -------------------------
-+ (DONE) User landing page
++ (!!!!) Administrator Dashboard  
 + (    ) User report list
 + (    ) User file a report (a modal maybe?)
-+ (    ) Administrator landing page
-+ (!!!!) Administrator Dashboard  
++ (DONE) Administrator landing page
++ (DONE) User landing page
 
 
 
 
 -------------------   LOGIN SUBSYSTEM    ---------------------
-+ (DONE) Fix bug with remember me session cookie
-+ (MEEH) Add reCaptcha (Added reCaptcha functionality in comments but not yet fully supported)
-+ (DONE) Add warnings and messages informing user about failed to login etc
 + (    ) Add proper registration form
 + (    ) Add proper edit form
++ (MEEH) Add reCaptcha (Added reCaptcha functionality in comments but not yet fully supported)
++ (DONE) Fix bug with remember me session cookie
++ (DONE) Add warnings and messages informing user about failed to login etc
 
 
 
 ------------------------- GENERAL ----------------------------
++ (!!!!) When changing pages, tag remains on url and refreshing the page prompts user to repeat the action
+         example after login index.php stays in url so immediate refreshing causes this
++ (    ) REFAAAAAAACTOOOOOOOOOOORRRRRRRRRRRRR
 + (    ) Make notifications temporary without x button
-+ (!!!!) When changing pages, tag remains on url and refreshing the page prompts user to repeat the action 
++ (    ) PROPER FAVICON

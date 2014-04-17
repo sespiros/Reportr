@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.13
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Apr 15, 2014 at 04:21 PM
--- Server version: 5.5.36-MariaDB-log
--- PHP Version: 5.5.11
+-- Φιλοξενητής: localhost
+-- Χρόνος δημιουργίας: 17 Απρ 2014 στις 19:00:48
+-- Έκδοση διακομιστή: 5.6.16
+-- Έκδοση PHP: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `webproject`
+-- Βάση δεδομένων: `webproject`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `web_categories`
+-- Δομή πίνακα για τον πίνακα `web_categories`
 --
 
 CREATE TABLE IF NOT EXISTS `web_categories` (
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `web_categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `web_categories`
+-- Άδειασμα δεδομένων του πίνακα `web_categories`
 --
 
 INSERT INTO `web_categories` (`id`, `name`) VALUES
@@ -42,7 +42,7 @@ INSERT INTO `web_categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `web_event`
+-- Δομή πίνακα για τον πίνακα `web_event`
 --
 
 CREATE TABLE IF NOT EXISTS `web_event` (
@@ -52,19 +52,12 @@ CREATE TABLE IF NOT EXISTS `web_event` (
   `submitted_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `submitted_id` (`submitted_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `web_event`
---
-
-INSERT INTO `web_event` (`id`, `time_submitted`, `status`, `submitted_id`) VALUES
-(1, '2014-04-15 15:30:38', 'Open', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `web_event_details`
+-- Δομή πίνακα για τον πίνακα `web_event_details`
 --
 
 CREATE TABLE IF NOT EXISTS `web_event_details` (
@@ -78,17 +71,10 @@ CREATE TABLE IF NOT EXISTS `web_event_details` (
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `web_event_details`
---
-
-INSERT INTO `web_event_details` (`event_id`, `title`, `description`, `latitude`, `longitude`, `category_id`) VALUES
-(1, 'Sample Report', 'This report it to test a sample entry in the database.', '39.55000000000000', '21.76670000000000', 1);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `web_users`
+-- Δομή πίνακα για τον πίνακα `web_users`
 --
 
 CREATE TABLE IF NOT EXISTS `web_users` (
@@ -101,23 +87,24 @@ CREATE TABLE IF NOT EXISTS `web_users` (
   `user_last_failed_login` int(10) DEFAULT NULL,
   `user_registration_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_registration_ip` varchar(39) NOT NULL DEFAULT '0.0.0.0',
-
+  `user_type` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`),
   UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `web_users`
+-- Άδειασμα δεδομένων του πίνακα `web_users`
 --
 
-INSERT INTO `web_users` (`user_id`, `user_name`, `user_password_hash`, `user_email`) VALUES
-(1, 'petros', 'd0ff2d67d042926d1db7e428c35f9bea8713866250cab36f', 'petros@example.com');
+INSERT INTO `web_users` (`user_id`, `user_name`, `user_password_hash`, `user_email`, `user_rememberme_token`, `user_failed_logins`, `user_last_failed_login`, `user_registration_datetime`, `user_registration_ip`, `user_type`) VALUES
+(3, 'sespiros', '$2y$10$nbyi3yodQ240KoxVJYCqEepC4SNLGljv1wa6/Ikb9LqMP99V8NLm2', 'sespiros@gmail.com', NULL, 0, NULL, '2014-04-15 23:49:57', '127.0.0.1', 1),
+(4, 'joe', '$2y$10$nbyi3yodQ240KoxVJYCqEepC4SNLGljv1wa6/Ikb9LqMP99V8NLm2', 'joe@example.com', NULL, 0, NULL, '2014-04-15 23:49:57', '127.0.0.1', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `web_user_details`
+-- Δομή πίνακα για τον πίνακα `web_user_details`
 --
 
 CREATE TABLE IF NOT EXISTS `web_user_details` (
@@ -129,30 +116,23 @@ CREATE TABLE IF NOT EXISTS `web_user_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `web_user_details`
---
-
-INSERT INTO `web_user_details` (`id`, `role`, `phone`, `name`) VALUES
-(1, 'Regular', '6974569825', 'Petros Jojomas');
-
---
--- Constraints for dumped tables
+-- Περιορισμοί για άχρηστους πίνακες
 --
 
 --
--- Constraints for table `web_event`
+-- Περιορισμοί για πίνακα `web_event`
 --
 ALTER TABLE `web_event`
   ADD CONSTRAINT `FK_event_users` FOREIGN KEY (`submitted_id`) REFERENCES `web_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `web_event_details`
+-- Περιορισμοί για πίνακα `web_event_details`
 --
 ALTER TABLE `web_event_details`
   ADD CONSTRAINT `FK_event_detail` FOREIGN KEY (`event_id`) REFERENCES `web_event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `web_user_details`
+-- Περιορισμοί για πίνακα `web_user_details`
 --
 ALTER TABLE `web_user_details`
   ADD CONSTRAINT `FK_user_detail` FOREIGN KEY (`id`) REFERENCES `web_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;

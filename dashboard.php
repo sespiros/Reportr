@@ -1,15 +1,5 @@
 <?php
 
-/**
- * A simple PHP Login Script / ADVANCED VERSION
- * For more versions (one-file, minimal, framework-like) visit http://www.php-login.net
- *
- * @author Panique
- * @link http://www.php-login.net
- * @link https://github.com/panique/php-login-advanced/
- * @license http://opensource.org/licenses/MIT MIT License
- */
-
 // check for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit('Sorry, this script does not run on a PHP version smaller than 5.3.7 !');
@@ -32,10 +22,16 @@ $login = new Login();
 if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.
-    include("views/logged_in.php");
-
+    if ($login->isUserAdmin() == true) {
+        include("views/dashboard.php");
+    } else {
+        header("Location:index.php");
+        die();
+    }
 } else {
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
-    include("views/not_logged_in.php");
+    //include("views/not_logged_in.php");
+    header("Location:index.php");
+    die();
 }

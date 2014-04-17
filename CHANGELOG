@@ -7,3 +7,5 @@
 
 
 - Merged error functionality of php-login with bootstrap alerts 
+
+- Modified php-login to support gravatar and Administrator login, user_type field set to 0 for user, 1 for admin

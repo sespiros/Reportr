@@ -18,6 +18,12 @@ require_once('classes/Login.php');
 // so this single line handles the entire login process.
 $login = new Login();
 
+function redirect($url, $statusCode = 303)
+{
+       header('Location: ' . $url, true, $statusCode);
+          die();
+}
+
 // ... ask if we are logged in here:
 if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
@@ -27,5 +33,7 @@ if ($login->isUserLoggedIn() == true) {
 } else {
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
-    include("views/not_logged_in.php");
+    //include("views/not_logged_in.php");
+    header("Location:index.php");
+    die();
 }
