@@ -40,6 +40,42 @@
         </nav>
     </header>
 
+    <div class="container">
+    <h3>Οι αναφορές μου</h3>
+<?php 
+    require_once('config/connect.php');
+
+    $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.event_id WHERE submitted_id=:sid");
+    $stmt->bindParam(':sid', $_SESSION['user_id']);
+    if ($stmt->execute()) {
+?>
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>Title</th>
+            <th>Time</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php
+        while ($row = $stmt->fetch()) {
+?>
+    <tr>
+        <td><?php echo $row['title']; ?></td>
+        <td><?php echo $row['time_submitted']; ?></td>
+        <td><a href="#" class="btn btn-primary">Details</a></td>
+    </tr>
+<?php
+        }
+?>
+    </tbody>
+</table>
+<?php
+    }
+?>
+</div>
     <footer>
         <div class="container">
             <h1 class="hidden">Footer</h1>
