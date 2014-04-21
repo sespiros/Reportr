@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="index.php">Incident Map</a></li>
-                <li><a href="#">My Reports</a></li>
+                <li><a href="myreports.php#">My Reports</a></li>
                 <li><a href="newreport.php">New Report</a></li>
                 <li class="active"><a href="#">Dashboard</a></li>
             </ul>
