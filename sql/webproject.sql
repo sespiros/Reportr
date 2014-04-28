@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.13
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Apr 21, 2014 at 02:38 PM
--- Server version: 5.5.36-MariaDB-log
--- PHP Version: 5.5.11
+-- Host: 127.0.0.1
+-- Generation Time: Apr 28, 2014 at 10:26 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -48,19 +48,20 @@ INSERT INTO `web_categories` (`id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `web_reports` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `time_submitted` datetime NOT NULL,
+  `time_closed` datetime NOT NULL,
   `status` enum('Closed','Open','','') NOT NULL,
-  `submitted_id` int(11) NOT NULL,
+  `submitter_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `submitted_id` (`submitted_id`)
+  KEY `submitted_id` (`submitter_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `web_reports`
 --
 
-INSERT INTO `web_reports` (`id`, `time_submitted`, `status`, `submitted_id`) VALUES
-(1, '2014-04-19 07:28:00', 'Open', 3),
-(2, '2014-04-09 00:00:00', 'Open', 3);
+INSERT INTO `web_reports` (`id`, `time_submitted`, `time_closed`, `status`, `submitter_id`) VALUES
+(1, '2014-04-19 07:28:00', '2014-04-19 07:32:00', 'Closed', 3),
+(2, '2014-04-09 00:00:00', '2014-04-09 00:20:00', 'Closed', 3);
 
 -- --------------------------------------------------------
 
@@ -139,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `web_user_details` (
 -- Constraints for table `web_reports`
 --
 ALTER TABLE `web_reports`
-  ADD CONSTRAINT `FK_event_users` FOREIGN KEY (`submitted_id`) REFERENCES `web_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_event_users` FOREIGN KEY (`submitter_id`) REFERENCES `web_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `web_report_details`

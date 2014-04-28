@@ -45,7 +45,7 @@
 <?php 
     require_once('config/connect.php');
 
-    $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.event_id WHERE submitted_id=:sid");
+    $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.event_id WHERE submitter_id=:sid");
     $stmt->bindParam(':sid', $_SESSION['user_id']);
     if ($stmt->execute()) {
 ?>
