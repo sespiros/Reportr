@@ -29,20 +29,28 @@
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-xs-6 col-sm-3 stat">
-            <h1><span class="fontawesome-folder-close-alt"></span> <?php echo $totalReports; ?> </h1>
-            <h3>Total Reports</h3>
+                <div class="content">
+                    <h1><span class="fontawesome-folder-close-alt"></span> <?php echo $totalReports; ?> </h1>
+                    <h3>Total Reports</h3>
+                </div>
             </div>
             <div class="col-xs-6 col-sm-3 stat">
-            <h1><span class="fontawesome-folder-open-alt"></span> <?php echo $openReports; ?> </h1>
-            <h3>Open Reports</h3>
+            <div class="content">
+                <h1><span class="fontawesome-folder-open-alt"></span> <?php echo $openReports; ?> </h1>
+                <h3>Open Reports</h3>
+            </div>
             </div>
             <div class="col-xs-6 col-sm-3 stat">
-            <h1><span class="fontawesome-ok"></span> <?php echo ($totalReports - $openReports); ?> </h1>
-            <h3>Closed Reports</h3>
+            <div class="content">
+                <h1><span class="fontawesome-ok"></span> <?php echo ($totalReports - $openReports); ?> </h1>
+                <h3>Closed Reports</h3>
+            </div>
             </div>
             <div class="col-xs-6 col-sm-3 stat">
-            <h1><span class="fontawesome-bar-chart"></span> <?php echo $averageTime; ?> </h1>
-            <h3>Average response time <small> in minutes</small></h3>
+            <div class="content">
+                <h1><span class="fontawesome-bar-chart"></span> <?php echo $averageTime; ?> <small>min</small> </h1>
+                <h3>Average response time</h3>
+            </div>
                 
             </div>
 
@@ -53,7 +61,7 @@
     </article>
 
     <footer>
-        <div class="container">
+        <div class="container text-center">
             <h1 class="hidden">Footer</h1>
             <p class="text-muted">&copy Copyright 2013.</p>
         </div>
@@ -63,5 +71,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
+    <script src="views/js/app.js"></script>
   </body>
 </html>

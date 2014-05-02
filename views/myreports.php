@@ -41,51 +41,52 @@
     </header>
 
     <div class="container">
-    <h3>Οι αναφορές μου</h3>
+    <h2>Οι αναφορές μου</h2>
 <?php 
     require_once('config/connect.php');
 
     $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.event_id WHERE submitter_id=:sid");
     $stmt->bindParam(':sid', $_SESSION['user_id']);
     if ($stmt->execute()) {
-?>
-<table class="table">
-    <thead>
-
-        <tr>
-            <th>Title</th>
-            <th>Time</th>
-            <th>Link</th>
-        </tr>
-    </thead>
-    <tbody>
-<?php
         while ($row = $stmt->fetch()) {
 ?>
-    <tr>
-        <td><?php echo $row['title']; ?></td>
-        <td><?php echo $row['time_submitted']; ?></td>
-        <td><a href="#" class="btn btn-primary">Details</a></td>
-    </tr>
+
+    <article class="report panel panel-default">
+        <div class="panel-body">
+            <div class="small-map-container pull-left">
+                <div class="small-map-data hidden">
+                    <span data-lat="<?php echo $row['latitude']; ?>"></span>
+                    <span data-long="<?php echo $row['longitude']; ?>"></span>
+                </div>
+                <div class="small-map-view"></div>
+            </div>
+            <div class="report-details">
+                <h3><?php echo $row['title']; ?></h3>
+                <p>
+                    <?php echo $row['description']; ?>
+                </p>
+                <span class="label label-info">Ανοιχτή</span>
+            </div>
+        </div>
+    </article>
+
 <?php
         }
-?>
-    </tbody>
-</table>
-<?php
     }
 ?>
 </div>
-    <footer>
-        <div class="container">
-            <h1 class="hidden">Footer</h1>
-            <p class="text-muted">&copy Copyright 2013.</p>
-        </div>
-    </footer>
+
+<footer>
+    <div class="container">
+        <h1 class="hidden">Footer</h1>
+        <p class="text-muted">&copy Copyright 2013.</p>
+    </div>
+</footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
-  </body>
+    <script src="views/js/myreports.js"></script>
+</body>
 </html>

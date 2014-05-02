@@ -40,6 +40,32 @@
         </nav>
     </header>
 
+    <div class="container push-down">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <form action="" role="form">
+                    <div class="form-group">
+                        <!--<label for="title_field">Τίτλος</label>-->
+                        <input placeholder="Τίτλος" class="form-control" id="title_field" type="text" name="title">
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="category_field">Κατηγορία</label>-->
+                        <select id="category_field" class="form-control" name="category">
+                        <option value="" disabled selected>Επίλεξε κατηγορία</option>
+                        <option value="general">Γενικά</option>
+                        <option value="error">Σφάλμα</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="description_field">Περιγραφή</label>-->
+                        <textarea placeholder="Περιγραφή αναφοράς" rows="4" class="form-control" id="description_field" name="description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit">Υποβολή</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <h1 class="hidden">Footer</h1>

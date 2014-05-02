@@ -1,13 +1,13 @@
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    height: 100%;
 }
 body {
   /* Margin bottom by footer height */
-  /*margin-bottom: 60px;*/
   padding-top: 50px;
   padding-bottom: 20px; 
-  background-color: #eeeeee;
+  font-family: 'Roboto Condensed', 'sans-serif';
+  height: 100%;
 }
 
 /* fontawesome */
@@ -30,14 +30,34 @@ header p
 
 #map-canvas {
     width:100%;
-    height:400px;
+    height: 70%;
 }
 
 .stat {
-    min-height: 210px;
     font-size: 16px;
     text-align: center;
-    padding: 10px;
+    padding: 30px 10px;
+    background-color: #FFF;
+    color: #F75C54;
+    height: 293px;
+}
+
+.stat:before {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: -0.25em;
+}
+
+.stat > .content {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.stat:hover {
+    color: #fff;
+    background-color: #F75C54;
 }
 
 .dropdown-login {
@@ -58,15 +78,35 @@ header p
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 160px;
   background-color: #333333;;
+  margin-top: 20px;
 }
 
 .text-muted {
     margin: 20px 0;
+}
+
+/* -- Myreports page -- */
+.small-map-view {
+    height: 250px;
+    width: 250px;
+}
+
+.report:hover {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+
+.report h3 {
+    margin-top: 0;
+}
+
+.report-details {
+    margin-left: 265px;
 }
 
 /* -- Helper rules -- */
@@ -80,4 +120,16 @@ footer {
         position:absolute;
         clip: rect(1px 1px 1px 1px); /* IE6 & 7 */
           clip: rect(1px, 1px, 1px, 1px);
+}
+
+form {
+    font-family: 'Roboto Condensed', 'sans-serif';
+}
+
+form textarea {
+    resize: vertical;
+}
+
+.push-down {
+    margin-top: 30px;
 }
