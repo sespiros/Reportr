@@ -52,8 +52,8 @@
 ?>
 
     <article class="report panel panel-default" id="report-<?php echo $row['id']; ?>">
-        <div class="panel-heading">
-            <h3 class="panel-title"><a href="#report-<?php echo $row['id']; ?> .panel-body" data-toggle="collapse"><?php echo $row['title']; ?></a></h3>
+        <div class="panel-heading" data-toggle="collapse" data-target="#report-<?php echo $row['id']; ?> .panel-body">
+            <h3 class="panel-title"><?php echo $row['title']; ?></h3>
         </div>
         <div class="panel-body collapse in">
             <div class="small-map-container pull-left">

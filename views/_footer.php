@@ -72,5 +72,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
     <script src="views/js/app.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="views/js/initmap.js"></script>
   </body>
 </html>

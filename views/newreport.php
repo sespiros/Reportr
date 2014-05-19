@@ -60,8 +60,20 @@
                         <!--<label for="description_field">Περιγραφή</label>-->
                         <textarea placeholder="Περιγραφή αναφοράς" rows="4" class="form-control" id="description_field" name="description"></textarea>
                     </div>
+                    <div class="form-group">
+                        <div id="map-container" style="height: 300px; width: 300px;">
+                        </div>
+                        <span id="debug"></span>
+                    </div>
+                    <div class="form-group clearfix">
+                        <span id="add-file-input" class="fontawesome-plus pull-left"></span>
+                        <input type="file" accept="image/*;capture=camera">
+                    </div>
                     <button type="submit" class="btn btn-primary" name="submit">Υποβολή</button>
                 </form>
+                <div class="alert alert-danger hidden" id="errors">
+                    errors
+                </div>
             </div>
         </div>
     </div>
@@ -77,5 +89,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="views/js/newreport.js"></script>
   </body>
 </html>
