@@ -1,7 +1,7 @@
 ---------------------    FRONTEND   -------------------------
 + (!!!!) Administrator Dashboard  
-+ (    ) User report list
-+ (    ) User file a report (a modal maybe?)
++ (DONE) User report list
++ (DONE) User file a report (a modal maybe?)
 + (DONE) Administrator landing page
 + (DONE) User landing page
 
@@ -23,3 +23,4 @@
 + (    ) REFAAAAAAACTOOOOOOOOOOORRRRRRRRRRRRR
 + (    ) Make notifications temporary without x button
 + (    ) PROPER FAVICON
++ (    ) Before deployment organize folders and permissions ( and images folder)

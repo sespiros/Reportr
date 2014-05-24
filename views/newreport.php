@@ -1,5 +1,4 @@
-<?php include('_header.php'); ?>
-
+<?php include('_header.php');?>
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -19,11 +18,9 @@
                 <li><a href="index.php">Incident Map</a></li>
                 <li><a href="myreports.php">My Reports</a></li>
                 <li class="active"><a href="#">New Report</a></li>
-
 <?php if ($login->isUserAdmin() == true) {
     echo '<li><a href="dashboard.php">Dashboard</a></li>';
 }?>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -43,7 +40,7 @@
     <div class="container push-down">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <form action="" role="form">
+                <form method="post" enctype="multipart/form-data" action="newreport.php" id="ajaxform" name="ajaxform" role="form">
                     <div class="form-group">
                         <!--<label for="title_field">Τίτλος</label>-->
                         <input placeholder="Τίτλος" class="form-control" id="title_field" type="text" name="title">
@@ -52,8 +49,18 @@
                         <!--<label for="category_field">Κατηγορία</label>-->
                         <select id="category_field" class="form-control" name="category">
                         <option value="" disabled selected>Επίλεξε κατηγορία</option>
-                        <option value="general">Γενικά</option>
-                        <option value="error">Σφάλμα</option>
+                        <?php 
+                            require_once('config/connect.php');
+
+                            $stmt = $pdo->prepare("SELECT * FROM web_categories");
+                            if ($stmt->execute()) {
+                                while ($row = $stmt->fetch()) {
+                        ?>
+                            <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                        <?php
+                                }
+                            }
+                        ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -63,13 +70,15 @@
                     <div class="form-group">
                         <div id="map-container" style="height: 300px; width: 300px;">
                         </div>
+                        <input class="hidden" id="lat_field" type="text" name="latitude">
+                        <input class="hidden" id="lon_field" type="text" name="longitude">
                         <span id="debug"></span>
                     </div>
                     <div class="form-group clearfix">
                         <span id="add-file-input" class="fontawesome-plus pull-left"></span>
-                        <input type="file" accept="image/*;capture=camera">
+                        <input type="file" accept="image/*;capture=camera" name="images[]">
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Υποβολή</button>
+                    <button type="submit" class="btn btn-primary" name="newreport">Υποβολή</button>
                 </form>
                 <div class="alert alert-danger hidden" id="errors">
                     errors
@@ -79,10 +88,12 @@
     </div>
 
     <footer>
-        <div class="container">
+    <div class="sticky-footer">
+        <div class="container text-center">
             <h1 class="hidden">Footer</h1>
             <p class="text-muted">&copy Copyright 2013.</p>
         </div>
+    </div>
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

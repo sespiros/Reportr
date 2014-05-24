@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>php-login-advanced</title>
+    <title>Register</title>
     <style type="text/css">
         /* just for the demo */
         body {

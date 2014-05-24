@@ -21,19 +21,33 @@
     <![endif]-->
   </head>
   <body>
-
-<?php
-// show potential errors / feedback (from login object)
-if (isset($login)) {
-    if ($login->errors) {
-        foreach ($login->errors as $error) {
-            echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+    <div id="errors">
+        <?php
+        // show potential errors / feedback (from login object)
+        if (isset($login)) {
+            if ($login->errors) {
+                foreach ($login->errors as $error) {
+                    echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+                }
+            }
+            if ($login->messages) {
+                foreach ($login->messages as $message) {
+                    echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+                }
+            }
         }
-    }
-    if ($login->messages) {
-        foreach ($login->messages as $message) {
-            echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+        // show potential errors / feedback (from report object)
+        if (isset($report)) {
+            if ($report->errors) {
+                foreach ($report->errors as $error) {
+                    echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+                }
+            }
+            if ($report->messages) {
+                foreach ($report->messages as $message) {
+                    echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+                }
+            }
         }
-    }
-}
-?>
+        ?>
+    </div>

@@ -1,6 +1,8 @@
 $(window).load(function() {
     function updateMarker(pos) {
         $('#debug').text(pos);
+        $('#lat_field').val(pos.coords.latitude);
+        $('#lon_field').val(pos.coords.longitude);
     }
 
     function loadMap(coords) {
@@ -11,6 +13,8 @@ $(window).load(function() {
         };
 
         $('#debug').text(mapOptions.center);
+        $('#lat_field').val(coords.lat);
+        $('#lon_field').val(coords.long);
 
         var map = new google.maps.Map($('#map-container')[0], mapOptions);
         var marker = new google.maps.Marker({
@@ -41,6 +45,7 @@ $(window).load(function() {
         long: 22.00
     };
     function geolocationError(err) {
+//na min fainontai edw ta errors giati an failarei to petaei sketo error: 1
         console.log('Error: ' + err.code);
         $('#errors').append('<p>' + err.code + '</p>');
         $('#errors').removeClass('hidden');
@@ -54,8 +59,46 @@ $(window).load(function() {
     };
 
     $('#add-file-input').click(function() {
-        if ($('input[type="file"]').size() < 4) {
-            $(this).before('<input type="file" accept="image/*;capture=camera">');
+        var size = $('input[type="file"]').size(); 
+        if ( size < 4) {
+            $(this).before('<input type="file" accept="image/*;capture=camera" name="images[]">');
         }
     });
+});
+
+$("#ajaxform").submit(function(e)
+{
+    var formObj = $(this);
+    var formURL = formObj.attr("action");
+    var formData = new FormData(this);
+    $.ajax({
+        url: formURL,
+    type: 'POST',
+        data:  formData,
+    mimeType:"multipart/form-data",
+    contentType: false,
+        cache: false,
+        processData:false,
+    success: function(data, textStatus, jqXHR)
+    {
+        var content = $( data ).find(".popup");
+        $( "#errors" ).empty().prepend(content);
+
+        content[0].style.opacity = 0;
+
+        //Make sure the initial state is applied.
+        window.getComputedStyle(content[0]).opacity;
+
+        content[0].style.opacity = 1;
+        
+        if ($( data ).find(".popup").hasClass("alert-info")) {
+            document.getElementById("ajaxform").reset();
+        }
+ 
+    },
+     error: function(jqXHR, textStatus, errorThrown) 
+     {
+     }          
+    });
+    e.preventDefault(); //STOP default action
 });
