@@ -26,8 +26,8 @@
 |                         TASKS REMAINING                   |
 -------------------------------------------------------------
 ==== MAIN PAGE
-+ (    ) Ajax refreshed stats
-+ (    ) Dynamic update of the map with the creation of new reports
++ (DONE) Ajax refreshed stats
++ (DONE) Dynamic update of the map with the creation of new reports
 + (DONE) Map info windows, smart centering
 + (DONE) last 20 on the map
 + (DONE) last 20 available with rss

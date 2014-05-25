@@ -9,7 +9,7 @@
 
 	$xml = '<last20>';
     
-    $sql = "SELECT title, description, name, time_submitted, status, latitude, longitude 
+    $sql = "SELECT report_id, title, description, name, time_submitted, status, latitude, longitude 
              FROM web_reports, web_report_details, web_categories WHERE 
             web_reports.id=web_report_details.report_id and web_report_details.category_id=web_categories.id
             ORDER BY time_submitted LIMIT 20";
@@ -19,7 +19,8 @@
 			$xml .='<marker	title="'.$row['title'].'" description="'.$row['description'].
 				'" status="'.$row['status'].'" latitude="'.$row['latitude'].
 				'" longitude="'.$row['longitude'].'" category="'.$row['name'].
-				'" pubDate="'.date('r', strtotime($row['time_submitted'])).'"></marker>';
+				'" pubDate="'.date('r', strtotime($row['time_submitted'])).
+				'" id="'.$row['report_id'].'"></marker>';
         }
         $xml .='</last20>';
     }
