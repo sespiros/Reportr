@@ -6,15 +6,12 @@
 + (DONE) User landing page
 
 
-
-
 -------------------   LOGIN SUBSYSTEM    ---------------------
 + (    ) Add proper registration form
 + (    ) Add proper edit form
 + (MEEH) Add reCaptcha (Added reCaptcha functionality in comments but not yet fully supported)
 + (DONE) Fix bug with remember me session cookie
 + (DONE) Add warnings and messages informing user about failed to login etc
-
 
 
 ------------------------- GENERAL ----------------------------
@@ -24,3 +21,31 @@
 + (    ) Make notifications temporary without x button
 + (    ) PROPER FAVICON
 + (    ) Before deployment organize folders and permissions ( and images folder)
+
+-------------------------------------------------------------
+|                         TASKS REMAINING                   |
+-------------------------------------------------------------
+==== MAIN PAGE
++ (    ) Ajax refreshed stats
++ (    ) Dynamic update of the map with the creation of new reports
++ (    ) Map info windows, smart centering
++ (DONE) last 20 on the map
++ (DONE) last 20 available with rss
+
+==== NEW REPORT
++ (DONE) Larger map
+
+==== MY REPORTS
++ (    ) Better layout / compact list
++ (    ) Most recent first
++ (    ) Show images and comment of the report
+
+==== DASHBOARD
++ (    ) User management ( Delete/ Edit)
++ (    ) Category management ( Add/ Delete/ Edit)
++ (    ) Open reports list and mark as solved with comment
++ (    ) Archive list
+
+==== VARIOUS
++ (    ) Better edit form
++ (    ) Better registration form

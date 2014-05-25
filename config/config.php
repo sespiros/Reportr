@@ -38,58 +38,6 @@ define("COOKIE_DOMAIN", ".127.0.0.1");
 define("COOKIE_SECRET_KEY", "1gp@TMPS{+$78sfpMJFe-92s");
 
 /**
- * Configuration for: Email server credentials
- *
- * Here you can define how you want to send emails.
- * If you have successfully set up a mail server on your linux server and you know
- * what you do, then you can skip this section. Otherwise please set EMAIL_USE_SMTP to true
- * and fill in your SMTP provider account data.
- *
- * An example setup for using gmail.com [Google Mail] as email sending service,
- * works perfectly in August 2013. Change the "xxx" to your needs.
- * Please note that there are several issues with gmail, like gmail will block your server
- * for "spam" reasons or you'll have a daily sending limit. See the readme.md for more info.
- *
- * define("EMAIL_USE_SMTP", true);
- * define("EMAIL_SMTP_HOST", "ssl://smtp.gmail.com");
- * define("EMAIL_SMTP_AUTH", true);
- * define("EMAIL_SMTP_USERNAME", "xxxxxxxxxx@gmail.com");
- * define("EMAIL_SMTP_PASSWORD", "xxxxxxxxxxxxxxxxxxxx");
- * define("EMAIL_SMTP_PORT", 465);
- * define("EMAIL_SMTP_ENCRYPTION", "ssl");
- *
- * It's really recommended to use SMTP!
- *
- */
-define("EMAIL_USE_SMTP", false);
-define("EMAIL_SMTP_HOST", "yourhost");
-define("EMAIL_SMTP_AUTH", true);
-define("EMAIL_SMTP_USERNAME", "yourusername");
-define("EMAIL_SMTP_PASSWORD", "yourpassword");
-define("EMAIL_SMTP_PORT", 465);
-define("EMAIL_SMTP_ENCRYPTION", "ssl");
-
-/**
- * Configuration for: password reset email data
- * Set the absolute URL to password_reset.php, necessary for email password reset links
- */
-define("EMAIL_PASSWORDRESET_URL", "http://127.0.0.1/php-login-advanced/password_reset.php");
-define("EMAIL_PASSWORDRESET_FROM", "no-reply@example.com");
-define("EMAIL_PASSWORDRESET_FROM_NAME", "My Project");
-define("EMAIL_PASSWORDRESET_SUBJECT", "Password reset for PROJECT XY");
-define("EMAIL_PASSWORDRESET_CONTENT", "Please click on this link to reset your password:");
-
-/**
- * Configuration for: verification email data
- * Set the absolute URL to register.php, necessary for email verification links
- */
-define("EMAIL_VERIFICATION_URL", "http://127.0.0.1/php-login-advanced/register.php");
-define("EMAIL_VERIFICATION_FROM", "no-reply@example.com");
-define("EMAIL_VERIFICATION_FROM_NAME", "My Project");
-define("EMAIL_VERIFICATION_SUBJECT", "Account activation for PROJECT XY");
-define("EMAIL_VERIFICATION_CONTENT", "Please click on this link to activate your account:");
-
-/**
  * Configuration for: Hashing strength
  * This is the place where you define the strength of your password hashing/salting
  *

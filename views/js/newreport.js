@@ -61,7 +61,7 @@ $(window).load(function() {
     $('#add-file-input').click(function() {
         var size = $('input[type="file"]').size(); 
         if ( size < 4) {
-            $(this).before('<input type="file" accept="image/*;capture=camera" name="images[]">');
+            $(this).before('<input class="upload" type="file" accept="image/*;capture=camera" name="images[]">');
         }
     });
 });

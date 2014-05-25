@@ -28,11 +28,6 @@ header p
         margin-left:132px;
 }
 
-#map-canvas {
-    width:100%;
-    height: 70%;
-}
-
 .stat {
     text-align: center;
     padding: 30px 10px;
@@ -119,6 +114,9 @@ input[type=file] {
     margin-bottom: 15px;
     margin-left: 20px;
 }
+
+/* -- Newreport page -- */
+
 
 /* -- Helper rules -- */
 .clear

@@ -1,4 +1,4 @@
-    <div class="google-map-canvas" id="map-canvas"></div>
+    <div id="map-canvas" style="height: 70%; width: 100%;"></div>
 
 <?php
     require_once('config/connect.php');
@@ -74,6 +74,55 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script src="views/js/initmap.js"></script>
+    <script type="text/javascript">
+        function initialize() {
+            var mapOptions = {
+                zoom: 8,
+                disableDefaultUI: true
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var markerBounds = new google.maps.LatLngBounds();
+            var markers = [];
+<?php
+    $sql = "SELECT title, description, name, time_submitted, status, latitude, longitude 
+            FROM web_reports, web_report_details, web_categories WHERE 
+            web_reports.id=web_report_details.report_id and web_report_details.category_id=web_categories.id
+            ORDER BY time_submitted LIMIT 20";
+    $stmt = $pdo->prepare($sql);
+    if ($stmt->execute()) {
+        while ($row = $stmt->fetch()) {
+            echo 
+"           var latLng = new google.maps.LatLng(".$row['latitude'].", ".$row['longitude'].");\n";
+            echo 
+"           markers.push(addMarker(latLng, map));\n";
+            echo
+"           markerBounds.extend(latLng);\n";
+        }
+        echo 
+"           map.fitBounds(markerBounds)\n";
+    }
+?>
+
+            markers.foreach(function(marker) {
+                google.maps.event.addListener(marker, 'click', function() {
+                    map.setZoom(8);
+                    map.setCenter(marker.getPosition());
+                });
+            });
+        }
+
+        function addMarker(latLng, map) {
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+
+            return marker;
+        }
+
+        google.maps.event.addDomListener(window, 'resize', initialize);
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
   </body>
 </html>

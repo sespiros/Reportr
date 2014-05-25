@@ -68,13 +68,13 @@
                         <textarea placeholder="Περιγραφή αναφοράς" rows="4" class="form-control" id="description_field" name="description"></textarea>
                     </div>
                     <div class="form-group">
-                        <div id="map-container" style="height: 300px; width: 300px;">
+                        <div id="map-container" style="height: 300px; width: 100%;">
                         </div>
                         <input class="hidden" id="lat_field" type="text" name="latitude">
                         <input class="hidden" id="lon_field" type="text" name="longitude">
                         <span id="debug"></span>
                     </div>
-                    <div class="form-group clearfix">
+                    <div class="form-group clearfix"> 
                         <span id="add-file-input" class="fontawesome-plus pull-left"></span>
                         <input type="file" accept="image/*;capture=camera" name="images[]">
                     </div>
