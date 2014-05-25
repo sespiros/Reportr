@@ -28,7 +28,7 @@
 ==== MAIN PAGE
 + (    ) Ajax refreshed stats
 + (    ) Dynamic update of the map with the creation of new reports
-+ (    ) Map info windows, smart centering
++ (DONE) Map info windows, smart centering
 + (DONE) last 20 on the map
 + (DONE) last 20 available with rss
 
@@ -49,3 +49,4 @@
 ==== VARIOUS
 + (    ) Better edit form
 + (    ) Better registration form
++ (    ) My reports page changes font on older submissions ?!

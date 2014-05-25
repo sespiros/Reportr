@@ -1,8 +1,8 @@
 $(window).load(function() {
     function updateMarker(pos) {
         $('#debug').text(pos);
-        $('#lat_field').val(pos.coords.latitude);
-        $('#lon_field').val(pos.coords.longitude);
+        $('#lat_field').val(pos.k);
+        $('#lon_field').val(pos.A);
     }
 
     function loadMap(coords) {

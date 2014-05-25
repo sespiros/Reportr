@@ -107,7 +107,7 @@ class Report
     public function imagecheck() {
         $allowedExts = array("jpeg", "jpg", "png");
 
-        if(!empty($_FILES["images"]['name'])) {
+        if(!empty($_FILES["images"]['name'][0])) {
             $this->images = reArrayFiles($_FILES["images"]);
                     
             foreach ($this->images as $image) {
