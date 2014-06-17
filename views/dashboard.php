@@ -36,6 +36,45 @@
         </nav>
     </header>
 
+    <div class="container">
+        <h2 class="text-center">Dashboard</h2>
+        <div class="row">
+            <div class="col-md-9">
+                <h3>Ανοιχτές Αναφορές</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Αριθμός αναφοράς</th>
+                            <th>Τίτλος</th>
+                            <th>Ώρα υποβολής</th>
+                            <th>Ενέργειες</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+<?php
+    require_once('config/connect.php');
+
+    $stmt = $pdo->prepare("SELECT id, title, time_submitted FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE
+        status='Open' ORDER BY time_submitted");
+    if ($stmt->execute()) {
+        while ($row = $stmt->fetch()) {
+?>
+                        <tr>
+                            <td><?php echo $row["id"]; ?></td>
+                            <td><?php echo $row["title"]; ?></td>
+                            <td><?php echo $row["time_submitted"]; ?></td>
+                            <td><a href="#">Προβολή</a></td>
+                        </tr>
+<?php
+        }
+    }
+?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <footer>
     <div class="sticky-footer">
         <div class="container text-center">
