@@ -49,6 +49,11 @@
     $stmt->bindParam(':sid', $_SESSION['user_id']);
     if ($stmt->execute()) {
         while ($row = $stmt->fetch()) {
+            $imgStmt = $pdo->prepare("SELECT path FROM web_report_images WHERE report_id=:rid");
+            $imgStmt->bindParam(':rid', $row['id']);
+            if ($imgStmt->execute()) {
+                $images = $imgStmt->fetchAll();
+            }
 ?>
 
     <article class="report panel panel-default" id="report-<?php echo $row['id']; ?>">
@@ -67,6 +72,11 @@
                 <p>
                     <?php echo $row['description']; ?>
                 </p>
+                <div class="image-grid">
+                    <?php foreach($images as $reportImage) : ?>
+                    <img src="<?php echo $reportImage['path'];?>" alt="">
+                    <?php endforeach; ?>
+                </div>
                 <span class="label label-info">Ανοιχτή</span>
             </div>
         </div>

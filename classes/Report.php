@@ -86,7 +86,9 @@ class Report
                 $extension = end($temp);
                 $enc_name = md5($image["name"]);
                 $name = $enc_name . "." .$extension;
-                $path = getcwd() . "/views/images/" . $name;
+                $dbPath = "views/images/" . $name;
+                $path = getcwd() . '/' . $dbPath;
+                $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
 
                 move_uploaded_file($image["tmp_name"], $path);
 
@@ -94,7 +96,7 @@ class Report
                     INSERT INTO web_report_images (path, report_id) VALUES(?,?)
                         ";
                 $image_insert = $this->db_connection->prepare($sql3);
-                $image_insert->bindValue(1,    $path,      PDO::PARAM_STR);
+                $image_insert->bindValue(1,    $dbPath,      PDO::PARAM_STR);
                 $image_insert->bindValue(2,    $report_id, PDO::PARAM_STR);
                 $image_insert->execute();
             }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.6
 -- http://www.phpmyadmin.net
 --
--- Φιλοξενητής: localhost
--- Χρόνος δημιουργίας: 23 Μάη 2014 στις 20:41:32
--- Έκδοση διακομιστή: 5.6.16
--- Έκδοση PHP: 5.5.11
+-- Host: 127.0.0.1
+-- Generation Time: Jun 17, 2014 at 05:05 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Βάση δεδομένων: `webproject`
+-- Database: `webproject`
 --
 
 -- --------------------------------------------------------
 
 --
--- Δομή πίνακα για τον πίνακα `web_categories`
+-- Table structure for table `web_categories`
 --
 
 CREATE TABLE IF NOT EXISTS `web_categories` (
@@ -32,21 +32,8 @@ CREATE TABLE IF NOT EXISTS `web_categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
--- --------------------------------------------------------
-
 --
--- Δομή πίνακα για τον πίνακα `web_images`
---
-
-CREATE TABLE IF NOT EXISTS `web_report_images` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `path` varchar(30) NOT NULL,
-  `report_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Άδειασμα δεδομένων του πίνακα `web_categories`
+-- Dumping data for table `web_categories`
 --
 
 INSERT INTO `web_categories` (`id`, `name`) VALUES
@@ -57,7 +44,7 @@ INSERT INTO `web_categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Δομή πίνακα για τον πίνακα `web_reports`
+-- Table structure for table `web_reports`
 --
 
 CREATE TABLE IF NOT EXISTS `web_reports` (
@@ -71,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `web_reports` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Άδειασμα δεδομένων του πίνακα `web_reports`
+-- Dumping data for table `web_reports`
 --
 
 INSERT INTO `web_reports` (`id`, `time_submitted`, `time_closed`, `status`, `submitter_id`) VALUES
@@ -81,7 +68,7 @@ INSERT INTO `web_reports` (`id`, `time_submitted`, `time_closed`, `status`, `sub
 -- --------------------------------------------------------
 
 --
--- Δομή πίνακα για τον πίνακα `web_report_details`
+-- Table structure for table `web_report_details`
 --
 
 CREATE TABLE IF NOT EXISTS `web_report_details` (
@@ -96,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `web_report_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Άδειασμα δεδομένων του πίνακα `web_report_details`
+-- Dumping data for table `web_report_details`
 --
 
 INSERT INTO `web_report_details` (`report_id`, `title`, `description`, `latitude`, `longitude`, `category_id`) VALUES
@@ -106,7 +93,21 @@ INSERT INTO `web_report_details` (`report_id`, `title`, `description`, `latitude
 -- --------------------------------------------------------
 
 --
--- Δομή πίνακα για τον πίνακα `web_users`
+-- Table structure for table `web_report_images`
+--
+
+CREATE TABLE IF NOT EXISTS `web_report_images` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `path` varchar(255) NOT NULL,
+  `report_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_report_image` (`report_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `web_users`
 --
 
 CREATE TABLE IF NOT EXISTS `web_users` (
@@ -126,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `web_users` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Άδειασμα δεδομένων του πίνακα `web_users`
+-- Dumping data for table `web_users`
 --
 
 INSERT INTO `web_users` (`user_id`, `user_name`, `user_password_hash`, `user_email`, `user_rememberme_token`, `user_failed_logins`, `user_last_failed_login`, `user_registration_datetime`, `user_registration_ip`, `user_type`) VALUES
@@ -134,23 +135,23 @@ INSERT INTO `web_users` (`user_id`, `user_name`, `user_password_hash`, `user_ema
 (4, 'joe', '$2y$10$nbyi3yodQ240KoxVJYCqEepC4SNLGljv1wa6/Ikb9LqMP99V8NLm2', 'joe@example.com', NULL, 0, NULL, '2014-04-15 23:49:57', '127.0.0.1', 0);
 
 --
--- Περιορισμοί για άχρηστους πίνακες
+-- Constraints for dumped tables
 --
 
 --
--- Περιορισμοί για πίνακα `web_reports`
+-- Constraints for table `web_reports`
 --
 ALTER TABLE `web_reports`
   ADD CONSTRAINT `FK_report_users` FOREIGN KEY (`submitter_id`) REFERENCES `web_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Περιορισμοί για πίνακα `web_report_details`
+-- Constraints for table `web_report_details`
 --
 ALTER TABLE `web_report_details`
   ADD CONSTRAINT `FK_report_detail` FOREIGN KEY (`report_id`) REFERENCES `web_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Περιορισμοί για πίνακα `web_report_images`
+-- Constraints for table `web_report_images`
 --
 ALTER TABLE `web_report_images`
   ADD CONSTRAINT `FK_report_image` FOREIGN KEY (`report_id`) REFERENCES `web_reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
