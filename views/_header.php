@@ -10,6 +10,7 @@
     <link href="views/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="views/css/reportr.css" rel="stylesheet">
+    <link href="views/css/lightbox.css" rel="stylesheet">
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=fontawesome">
     <link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,greek' rel='stylesheet' type='text/css'>
 

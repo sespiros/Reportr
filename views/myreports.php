@@ -61,23 +61,31 @@
             <h3 class="panel-title"><?php echo $row['title']; ?></h3>
         </div>
         <div class="panel-body collapse in">
-            <div class="small-map-container pull-left">
-                <div class="small-map-data hidden">
-                    <span data-lat="<?php echo $row['latitude']; ?>"></span>
-                    <span data-long="<?php echo $row['longitude']; ?>"></span>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="small-map-data hidden">
+                            <span data-lat="<?php echo $row['latitude']; ?>"></span>
+                            <span data-long="<?php echo $row['longitude']; ?>"></span>
+                        </div>
+                        <div class="small-map-view"></div>
+                    </div>
+                    <div class="col-md-9">
+                        <p>
+                        <?php echo $row['description']; ?>
+                        </p>
+                        <div class="image-grid clearfix">
+                            <?php 
+                            $imgId = 0;
+                            foreach($images as $reportImage) { 
+                            $imgId++;
+                            ?>
+                            <a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
+                            <?php } ?>
+                        </div>
+                        <span class="label label-info">Ανοιχτή</span>
+                    </div>
                 </div>
-                <div class="small-map-view"></div>
-            </div>
-            <div class="report-details">
-                <p>
-                    <?php echo $row['description']; ?>
-                </p>
-                <div class="image-grid">
-                    <?php foreach($images as $reportImage) : ?>
-                    <img src="<?php echo $reportImage['path'];?>" alt="">
-                    <?php endforeach; ?>
-                </div>
-                <span class="label label-info">Ανοιχτή</span>
             </div>
         </div>
     </article>
@@ -100,6 +108,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="views/js/lightbox.min.js"></script>
     <script src="views/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="views/js/myreports.js"></script>

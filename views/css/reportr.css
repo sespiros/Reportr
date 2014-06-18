@@ -92,7 +92,7 @@ footer {
 /* -- Myreports page -- */
 .small-map-view {
     height: 250px;
-    width: 250px;
+    width: 100%;
 }
 
 .report:hover {
@@ -106,13 +106,19 @@ footer {
     cursor: pointer;
 }
 
-.report-details {
-    margin-left: 265px;
-}
-
 input[type=file] {
     margin-bottom: 15px;
     margin-left: 20px;
+}
+
+.image-grid {
+    margin: 20px 0;
+}
+
+.image-grid img {
+    max-width: 25%;
+    border: 5px solid #fff;
+    float: left;
 }
 
 /* -- Newreport page -- */
