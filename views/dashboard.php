@@ -1,5 +1,28 @@
 <?php include('_header.php'); ?>
 
+<?php
+    require_once('config/connect.php');
+
+    if (isset($_POST['categorySubmit'])) {
+        $catStmt = $pdo->prepare('SELECT count(*) FROM web_categories WHERE name=:catName');
+        $catStmt->bindParam('catName', $_POST['categoryName']);
+        if ($catStmt->execute()) {   
+            $row = $catStmt->fetch(PDO::FETCH_NUM);
+            $nrows = $row[0];
+        }
+
+        // only if category doesn't exist, add it
+        if ($nrows == 0) {
+            $addStmt = $pdo->prepare('INSERT INTO web_categories (name) VALUES (:catName)');
+            $addStmt->bindParam('catName', $_POST['categoryName']);
+            if (!$addStmt->execute()) {
+                die('Error!');
+            }
+        }
+    }
+
+?>
+
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -39,7 +62,7 @@
     <div class="container">
         <h2 class="text-center">Dashboard</h2>
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-5">
                 <h3>Ανοιχτές Αναφορές</h3>
                 <table class="table">
                     <thead>
@@ -71,6 +94,49 @@
 ?>
                     </tbody>
                 </table>
+            </div>
+            <div class="col-md-5">
+                <h3>Επιλυμένες Αναφορές</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Αριθμός αναφοράς</th>
+                            <th>Τίτλος</th>
+                            <th>Ημερομηνία επίλυσης</th>
+                            <th>Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+<?php
+    require_once('config/connect.php');
+
+    $stmt = $pdo->prepare("SELECT id, title, time_closed FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE
+        status='Closed' ORDER BY time_submitted");
+    if ($stmt->execute()) {
+        while ($row = $stmt->fetch()) {
+?>
+                        <tr>
+                            <td><?php echo $row["id"]; ?></td>
+                            <td><?php echo $row["title"]; ?></td>
+                            <td><?php echo $row["time_closed"]; ?></td>
+                            <td>admin</td>
+                        </tr>
+<?php
+        }
+    }
+?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2">
+                <h3>Προσθήκη Κατηγορίας</h3>
+                <form role="form" method="post">
+                    <div class="form-group">
+                        <label for="categoryNameId">Όνομα Κατηγορίας</label>
+                        <input type="text" id="categoryNameId" name="categoryName" class="form-control">
+                    </div>
+                    <button type="submit" name="categorySubmit" class="btn btn-primary">Προσθήκη</button>
+                </form>
             </div>
         </div>
     </div>
