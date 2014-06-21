@@ -41,7 +41,7 @@
     </header>
 
     <div class="container">
-    <h2>Οι αναφορές μου</h2>
+    <h1>Οι αναφορές μου</h1>
 <?php 
     require_once('config/connect.php');
 
@@ -94,7 +94,7 @@
         }
     }
 ?>
-</div>
+	</div>
 
     <footer>
     <div class="sticky-footer">

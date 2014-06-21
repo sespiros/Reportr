@@ -15,8 +15,7 @@
             var map = new google.maps.Map(that.siblings('.small-map-view')[0], mapOptions);
             var marker = new google.maps.Marker({
                 position: mapOptions.center,
-                map: map,
-                title: 'Title'
+                map: map
             });
         });
     });

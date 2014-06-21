@@ -634,7 +634,7 @@ class Login
             box-shadow: 0 0 8px rgba(0, 0, 0, .8);
             -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
             -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-            " src="' . $url .'" />';
+            " src="' . $url .'" alt=""/>';
         
         // the image url like above but with an additional <img src .. /> around
         $this->user_gravatar_image_tag = $url;

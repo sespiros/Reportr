@@ -12,7 +12,7 @@
     <link href="views/css/reportr.css" rel="stylesheet">
     <link href="views/css/lightbox.css" rel="stylesheet">
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=fontawesome">
-    <link href='http://fonts.googleapis.com/css?family=Roboto&subset=latin,greek' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto&amp;subset=latin,greek' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -46,6 +46,19 @@
             }
             if ($report->messages) {
                 foreach ($report->messages as $message) {
+                    echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+                }
+            }
+        }
+        // show potential errors / feedback (from adminControls object)
+        if (isset($controls)) {
+            if ($controls->errors) {
+                foreach ($controlls->errors as $error) {
+                    echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
+                }
+            }
+            if ($controls->messages) {
+                foreach ($controls->messages as $message) {
                     echo '<div class="popup alert-info">'.$message.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
                 }
             }

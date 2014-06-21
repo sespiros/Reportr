@@ -45,10 +45,6 @@ $(window).load(function() {
         long: 22.00
     };
     function geolocationError(err) {
-//na min fainontai edw ta errors giati an failarei to petaei sketo error: 1
-        console.log('Error: ' + err.code);
-        $('#errors').append('<p>' + err.code + '</p>');
-        $('#errors').removeClass('hidden');
         loadMap(greeceLatLng);
     }
 

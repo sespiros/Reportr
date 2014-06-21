@@ -7,7 +7,7 @@
     <div class="sticky-footer">
         <div class="container text-center">
             <h1 class="hidden">Footer</h1>
-            <p class="text-muted">&copy Copyright 2013.</p>
+            <p class="text-muted">&copy; Copyright 2013.</p>
         </div>
     </div>
     </footer>

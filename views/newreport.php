@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <!--<label for="category_field">Κατηγορία</label>-->
                         <select id="category_field" class="form-control" name="category">
-                        <option value="" disabled selected>Επίλεξε κατηγορία</option>
+                        <option value="" disabled selected>Επέλεξε κατηγορία</option>
                         <?php 
                             require_once('config/connect.php');
 

@@ -77,17 +77,66 @@
 <?php
     require_once('config/connect.php');
 
-    $stmt = $pdo->prepare("SELECT id, title, time_submitted FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE
+    $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE
         status='Open' ORDER BY time_submitted");
     if ($stmt->execute()) {
         while ($row = $stmt->fetch()) {
+            $imgStmt = $pdo->prepare("SELECT path FROM web_report_images WHERE report_id=:rid");
+            $imgStmt->bindParam(':rid', $row['id']);
+            if ($imgStmt->execute()) {
+                $images = $imgStmt->fetchAll();
+			}
 ?>
                         <tr>
                             <td><?php echo $row["id"]; ?></td>
                             <td><?php echo $row["title"]; ?></td>
                             <td><?php echo $row["time_submitted"]; ?></td>
-                            <td><a href="#">Προβολή</a></td>
-                        </tr>
+							<td><a data-toggle="modal" data-target="#<?php echo $row["id"]; ?>" href="#">Προβολή</a></td>
+						</tr>
+						<!-- Modal -->
+						<div class="modal fade" id="<?php echo $row["id"]; ?>" tabindex="-1" role="dialog" aria-labelledby="<?php echo $row["id"]; ?>label" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="myModalLabel"><?php echo $row["title"]; ?></h4>
+							</div>
+							<div class="modal-body">
+<!-- to content tou modal einai opws einai sto my reports otan allakseis auto tha allaksw kai auto 
+opote to afinw xima gia tin ora, BASIC FUNCTIONALITY ITHELES PARTO -->
+								<div class="small-map-data hidden">
+									<span data-lat="<?php echo $row['latitude']; ?>"></span>
+									<span data-long="<?php echo $row['longitude']; ?>"></span>
+								</div>
+								<div class="small-map-view"></div>
+								<br>
+								<p>
+								<?php echo $row['description']; ?>
+								<span class="label label-info">Ανοιχτή</span>
+								</p>
+								<div class="image-grid clearfix">
+									<?php 
+									$imgId = 0;
+									foreach($images as $reportImage) { 
+									$imgId++;
+									?>
+									<a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
+									<?php } ?>
+								</div>
+								<br>
+                				<form method="post" action="dashboard.php" role="form">
+									<input type="hidden" name="report_id" value="<?php echo $row['id']; ?>">
+									<div class="form-group">
+										<textarea rows="3" class="form-control" name="comment" placeholder="Πρόσθήκη σχολίου"></textarea>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-danger form-control" name="markClosed">Κλείσιμο αναφοράς</button>
+									</div>
+								</form>
+							</div>
+							</div>
+						</div>
+						</div>
 <?php
         }
     }
@@ -154,5 +203,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="views/js/dashboard.js"></script>
   </body>
 </html>
