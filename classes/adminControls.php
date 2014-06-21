@@ -12,6 +12,7 @@ class adminControls
         if (isset($_POST["markClosed"])) {
             $this->markReportClosed($_POST['report_id'], $_POST['comment']);
         }
+
     }
 
     /**
@@ -39,7 +40,7 @@ class adminControls
         if ($this->databaseConnection()) {
             // 1. Mark report as closed in web_reports table
             $sql1 = "
-                UPDATE web_reports SET status=:stat WHERE id=:report_id
+                UPDATE web_reports SET status=:stat, time_closed=NOW() WHERE id=:report_id
                     ";
             $report_close = $this->db_connection->prepare($sql1);
             $report_close->bindValue(':stat',   "Closed",   PDO::PARAM_STR);
@@ -59,6 +60,7 @@ class adminControls
             $this->submit_successful = true;
 
 		}
-    }
+	}
+
 
 }

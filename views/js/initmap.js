@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 
 function refreshStats(){
-	$('#stats').load('stats.php', function(){
+	$('#stats').load('resources/stats.php', function(){
 		setTimeout(refreshStats, 5000);
 	});
 }
@@ -26,7 +26,7 @@ function initialize() {
 	});	
 	markerBounds = new google.maps.LatLngBounds();
 
-	var data = parseXML('last.php');
+	var data = parseXML('resources/last.php');
 	markers = data.getElementsByTagName("marker");
 
 	for (var i = 0; i < markers.length; i++)
@@ -42,7 +42,7 @@ function initialize() {
 }
 
 function updateMarkers() {
-	var data = parseXML('last.php');
+	var data = parseXML('resources/last.php');
 	markers = data.getElementsByTagName("marker");
 
 	for (var i = 0; i < markers.length; i++)
