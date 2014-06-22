@@ -35,8 +35,8 @@
         </nav>
     </header>
 
+    <h2 class="coloured-banner3 text-center">Dashboard</h2>
     <div class="container">
-        <h2 class="text-center">Dashboard</h2>
         <div class="row">
 			<div class="col-md-5">
 				<div id="content-open"></div>
@@ -70,6 +70,40 @@ foreach($controls->categories as $name){
                 </form>
             </div>
         </div>
+		<div class ="row">
+			<h3>Χρήστες</h3>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Username</th>
+						<th>Διεύθυνση e-mail</th>
+						<th>Ημερομηνία εγγραφής</th>
+						<th>Τύπος χρήστη</th>
+						<th>Ενέργειες</th>
+					</tr>
+				</thead>
+				<tbody>
+<?php
+foreach($controls->users as $user){
+?>
+					<tr>
+						<td class="uid"><?php echo $user["user_id"]; ?></td>
+						<td><?php echo $user["user_name"]; ?></td>
+						<td><?php echo $user["user_email"]; ?></td>
+						<td><?php echo $user["user_registration_datetime"]; ?></td>
+						<td><?php if ($user["user_type"] == 1)echo "Διαχειριστής";else echo "Απλός χρήστης"; ?></td>
+						<td>
+							<a class="delUser"  href="#">Διαγραφή</a>
+							<a class="editUser" href="#">Επεξεργασία</a>
+						</td>
+					</tr>
+<?php
+}
+?>
+				</tbody>
+			</table>
+		</div>
     </div>
 
     <footer>

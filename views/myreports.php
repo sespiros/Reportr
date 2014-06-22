@@ -40,8 +40,8 @@
         </nav>
     </header>
 
+    <h2 class="coloured-banner1 text-center">Οι αναφορές μου</h2>
     <div class="container">
-    <h1>Οι αναφορές μου</h1>
 <?php 
     require_once('config/connect.php');
 

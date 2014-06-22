@@ -6,12 +6,16 @@ class adminControls
     public  $errors             = array();
     public  $messages           = array();
 	public  $categories			= array();
+	public  $users				= array();
 	public  $showpage           = true;
 
     public function __construct()
     {
 		//populate categories table
 		$this->fetchCategories();
+
+		//populate users table
+		$this->fetchUsers();
 
         // if we have such a POST request, call the markReportClosed() method
         if (isset($_POST["markClosed"])) {
@@ -33,6 +37,11 @@ class adminControls
 		// handler for the delete category
 		if (isset($_POST['del_cat_id'])) {
 			$this->deleteCategory($_POST['del_cat_id']);
+		}
+
+		// handler for the delete user
+		if (isset($_POST['del_user_id'])) {
+			$this->deleteUser($_POST['del_user_id']);
 		}
 
     }
@@ -111,7 +120,7 @@ class adminControls
 					<div class="btn-group btn-group-xs">
 					<button id="' .$row['id']. '" type="button" class="category btn btn-default">
 					' .$row['name']. '</button>
-					<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+					<button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>';
 				}
 			}
@@ -143,6 +152,29 @@ class adminControls
 		}
 	}
 
+	private function deleteUser($user_id)
+	{
+		if ($this->databaseConnection()) {
+			$pdo = $this->db_connection;
+			$checkStmt = $pdo->prepare('SELECT user_type FROM web_users WHERE user_id=:user_id');
+			$checkStmt->bindParam('user_id', $user_id);
+			if ($checkStmt->execute()) {
+				$row = $checkStmt->fetch();
+
+				if ($row['user_type'] == 0) {			
+					//$userStmt = $pdo->prepare('DELETE FROM web_users WHERE user_id=:user_id');
+					//$userStmt->bindParam('user_id', $user_id);
+					//if (!$userStmt->execute()) {   
+						//die('Error!');
+					//}
+					$this->messages[] = "User with id " . $user_id . " deleted successfully";
+				}else{
+					$this->errors[] = "Can't delete adminitrators";
+				}
+			}
+		}
+	}
+
 	private function fetchCategories()
 	{
 		if ($this->databaseConnection()) {
@@ -150,6 +182,19 @@ class adminControls
 			$catStmt = $pdo->prepare('SELECT * FROM web_categories');
 			if ($catStmt->execute()) {   
 				$this->categories = $catStmt->fetchAll();
+			}
+
+		}
+
+	}
+
+	private function fetchUsers()
+	{
+		if ($this->databaseConnection()) {
+			$pdo = $this->db_connection;
+			$catStmt = $pdo->prepare('SELECT * FROM web_users');
+			if ($catStmt->execute()) {   
+				$this->users = $catStmt->fetchAll();
 			}
 
 		}

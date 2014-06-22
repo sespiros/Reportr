@@ -37,6 +37,7 @@
         </nav>
     </header>
 
+    <h2 class="coloured-banner2 text-center">Νέα αναφορά</h2>
     <div class="container push-down">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">

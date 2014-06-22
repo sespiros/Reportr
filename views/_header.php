@@ -53,7 +53,7 @@
         // show potential errors / feedback (from adminControls object)
         if (isset($controls)) {
             if ($controls->errors) {
-                foreach ($controlls->errors as $error) {
+                foreach ($controls->errors as $error) {
                     echo '<div class="popup alert-danger"><strong>Oh snap! </strong>'.$error.'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button></div>';
                 }
             }

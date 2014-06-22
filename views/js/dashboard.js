@@ -77,7 +77,8 @@ $(document).ready(function(){
 			'</form>').submit();
 	});
 
-	$('.category').click(function() {
+	//delegate event to document in case of newlly added categories
+	$(document).on("click", ".category", function() {
 		$(this).attr('contentEditable', true);
 	}).blur(function() {
 		$(this).attr('contentEditable', false);
@@ -89,11 +90,19 @@ $(document).ready(function(){
 		}
 	});
 
-	$('.catRemove').click(function() {
+	//delegate event to document in case of newlly added categories
+	$(document).on("click", ".catRemove", function() {
 		var cat_id = $(this).siblings().attr('id');	
 		var post_data = "del_cat_id="+cat_id;
 		$.post( "dashboard.php", post_data );
 		$(this).parent().remove();
+	});
+
+	$('.delUser').click(function() {
+		var uid = $(this).parent().siblings("td.uid").text();
+		$('<form method="post" action="dashboard.php" role="form">' +
+			'<input name="del_user_id" value="' + uid + '">' +
+			'</form>').submit();
 	});
 
 	$(document).on("submit", "#categoryForm", function(e) {

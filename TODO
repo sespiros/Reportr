@@ -39,7 +39,8 @@
 + (    ) Show images and comment of the report
 
 ==== DASHBOARD
-+ (    ) User management ( Delete/ Edit)
++ (DONE) User management (Delete)
++ (    ) User management (Edit)
 + (DONE) Category management ( Add/ Delete/ Edit)
 + (    ) ti simvainei otan svistei mia katigoria pou yparxoun reports? na svinoume ola ta reports?
          giati diaforetika fantazomai tha epireazontai diafora queries se diafora shmeia
