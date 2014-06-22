@@ -71,27 +71,29 @@ class adminControls
         if ($this->databaseConnection()) {
             // 1. Mark report as closed in web_reports table
             $sql1 = "
-                UPDATE web_reports SET status=:stat, time_closed=NOW() WHERE id=:report_id
-                    ";
+                UPDATE web_reports SET status=:stat, time_closed=NOW(), closer_id=:cid, comment=:comment WHERE id=:report_id
+                ";
             $report_close = $this->db_connection->prepare($sql1);
             $report_close->bindValue(':stat',   "Closed",   PDO::PARAM_STR);
+            $report_close->bindValue(':cid', $_SESSION["user_id"],   PDO::PARAM_STR);
+            $report_close->bindValue(':comment', $comment,   PDO::PARAM_STR);
             $report_close->bindValue(':report_id',   $id,   PDO::PARAM_STR);
             $report_close->execute();
-		
+
             // 2. Add comment in web_report_details
-            $sql2 = "
-                UPDATE web_report_details SET comment=:comment WHERE report_id=:report_id
-                    ";
-            $report_comment = $this->db_connection->prepare($sql2);
-            $report_comment->bindValue(':comment',   $comment,   PDO::PARAM_STR);
-            $report_comment->bindValue(':report_id',   $id,   PDO::PARAM_STR);
-            $report_comment->execute();
-		
+            //$sql2 = "
+            //UPDATE web_report_details SET comment=:comment WHERE report_id=:report_id
+            //";
+            //$report_comment = $this->db_connection->prepare($sql2);
+            //$report_comment->bindValue(':comment',   $comment,   PDO::PARAM_STR);
+            //$report_comment->bindValue(':report_id',   $id,   PDO::PARAM_STR);
+            //$report_comment->execute();
+
             $this->messages[] = "Report " . $id . " marked as closed";
             $this->submit_successful = true;
 
-		}
-	}
+        }
+    }
 
 	private function addCategory($categoryName)
 	{
