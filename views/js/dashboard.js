@@ -80,14 +80,15 @@ $(document).ready(function(){
 	//delegate event to document in case of newlly added categories
 	$(document).on("click", ".category", function() {
 		$(this).attr('contentEditable', true);
-	}).blur(function() {
-		$(this).attr('contentEditable', false);
-		var newName = $(this).text();
-		if (newName){
-			var id = $(this).attr('id');
-			var post_data = "newName="+newName+"&category_id="+id;
-			$.post( "dashboard.php", post_data );
-		}
+                $(this).blur(function() {
+                    $(this).attr('contentEditable', false);
+                    var newName = $(this).text();
+                    if (newName){
+                        var id = $(this).attr('id');
+                        var post_data = "newName="+newName+"&category_id="+id;
+                        $.post( "dashboard.php", post_data );
+                    }
+                });
 	});
 
 	//delegate event to document in case of newlly added categories

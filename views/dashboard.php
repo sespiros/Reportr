@@ -47,12 +47,12 @@
 				<div id="page-selection-closed"></div>
 			</div>
             <div class="col-md-2">
-                <h3>Προσθήκη Κατηγορίας</h3>
+                <h3>Κατηγορίες <small>κλικ για επεξεργασία</small></h3>
 				<div id="categories" class="form-group">
 <?php
 foreach($controls->categories as $name){
 ?>
-	<div class="btn-group btn-group-xs">
+	<div class="btn-group btn-group-sm">
 	<button id="<?php echo $name['id']; ?>" type="button" class="category btn btn-default"><?php echo $name['name']; ?></button>
     <button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 	</div>
@@ -60,10 +60,9 @@ foreach($controls->categories as $name){
 }
 ?>
 				</div>
-				<span class="label label-default">Click to edit</span>
                 <form id="categoryForm" role="form" method="post">
                     <div class="form-group">
-                        <label for="categoryNameId">Όνομα Κατηγορίας</label>
+                        <label for="categoryNameId">Όνομα Νέας Κατηγορίας</label>
                         <input type="text" id="categoryNameId" name="categoryName" class="form-control">
                     </div>
                     <button type="submit" name="categorySubmit" class="btn btn-primary">Προσθήκη</button>
@@ -71,7 +70,9 @@ foreach($controls->categories as $name){
             </div>
         </div>
 		<div class ="row">
+                    <div class="col-md-12">
 			<h3>Χρήστες</h3>
+                        <div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -94,8 +95,8 @@ foreach($controls->users as $user){
 						<td><?php echo $user["user_registration_datetime"]; ?></td>
 						<td><?php if ($user["user_type"] == 1)echo "Διαχειριστής";else echo "Απλός χρήστης"; ?></td>
 						<td>
-							<a class="delUser"  href="#">Διαγραφή</a>
-							<a class="editUser" href="#">Επεξεργασία</a>
+							<a class="editUser btn btn-warning"  href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a class="delUser btn btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span></a>
 						</td>
 					</tr>
 <?php
@@ -103,6 +104,8 @@ foreach($controls->users as $user){
 ?>
 				</tbody>
 			</table>
+                    </div>
+                    </div>
 		</div>
     </div>
 
