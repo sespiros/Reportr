@@ -76,5 +76,37 @@ $(document).ready(function(){
 			'<input name="markClosed">' +
 			'</form>').submit();
 	});
+
+	$('.category').click(function() {
+		$(this).attr('contentEditable', true);
+	}).blur(function() {
+		$(this).attr('contentEditable', false);
+		var newName = $(this).text();
+		if (newName){
+			var id = $(this).attr('id');
+			var post_data = "newName="+newName+"&category_id="+id;
+			$.post( "dashboard.php", post_data );
+		}
+	});
+
+	$('.catRemove').click(function() {
+		var cat_id = $(this).siblings().attr('id');	
+		var post_data = "del_cat_id="+cat_id;
+		$.post( "dashboard.php", post_data );
+		$(this).parent().remove();
+	});
+
+	$(document).on("submit", "#categoryForm", function(e) {
+		e.preventDefault();
+		var post_data = $(this).serialize() + "&categorySubmit="+encodeURIComponent(1);
+		$.post( "dashboard.php", post_data )
+			.done(function( data ) {
+				$('#categories').append(data);
+			});
+	});
+
+
+
+
 });
 

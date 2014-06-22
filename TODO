@@ -1,5 +1,5 @@
 ---------------------    FRONTEND   -------------------------
-+ (!!!!) Administrator Dashboard  
++ (DONE) Administrator Dashboard  
 + (DONE) User report list
 + (DONE) User file a report (a modal maybe?)
 + (DONE) Administrator landing page
@@ -7,8 +7,6 @@
 
 
 -------------------   LOGIN SUBSYSTEM    ---------------------
-+ (    ) Add proper registration form
-+ (    ) Add proper edit form
 + (MEEH) Add reCaptcha (Added reCaptcha functionality in comments but not yet fully supported)
 + (DONE) Fix bug with remember me session cookie
 + (DONE) Add warnings and messages informing user about failed to login etc
@@ -42,11 +40,22 @@
 
 ==== DASHBOARD
 + (    ) User management ( Delete/ Edit)
-+ (    ) Category management ( Add/ Delete/ Edit)
-+ (    ) Open reports list and mark as solved with comment
-+ (    ) Archive list
++ (DONE) Category management ( Add/ Delete/ Edit)
++ (    ) ti simvainei otan svistei mia katigoria pou yparxoun reports? na svinoume ola ta reports?
+         giati diaforetika fantazomai tha epireazontai diafora queries se diafora shmeia
++ (DONE) Open reports list and mark as solved with comment
++ (    ) Edw (open reports table) leei most recent kai group by katigoria pos akrivos to thelei diladi?
++ (DONE) Archive list
 
 ==== VARIOUS
 + (    ) Better edit form
 + (    ) Better registration form
-+ (    ) My reports page changes font on older submissions ?!
++ (    ) My reports page FONT BUG. After map load html headings in greek change font?!
++ (    ) I teleios afairesi tou footer einai kapos asximi opote as kanoume kati edw
++ (    ) Pio omorfo dashboard
++ (    ) anti o pinakas na exei energeies na ginontai triggered me click stin eggrafi 
+
+
+=== COSMETIC
++ (    ) xroma sta headers kathe selidas
++ (    ) xroma stin epilogi pinaka 

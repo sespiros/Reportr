@@ -7,7 +7,7 @@
 	}
 
 	// 1. Fetch reports
-	$max = 3;
+	$max = 20;
 	$count = 0;
 	if (isset($_POST['page']))
 		$page = $_POST['page'];

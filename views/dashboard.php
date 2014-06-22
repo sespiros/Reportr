@@ -1,28 +1,4 @@
 <?php include('_header.php'); ?>
-
-<?php
-    require_once('config/connect.php');
-
-    if (isset($_POST['categorySubmit'])) {
-        $catStmt = $pdo->prepare('SELECT count(*) FROM web_categories WHERE name=:catName');
-        $catStmt->bindParam('catName', $_POST['categoryName']);
-        if ($catStmt->execute()) {   
-            $row = $catStmt->fetch(PDO::FETCH_NUM);
-            $nrows = $row[0];
-        }
-
-        // only if category doesn't exist, add it
-        if ($nrows == 0) {
-            $addStmt = $pdo->prepare('INSERT INTO web_categories (name) VALUES (:catName)');
-            $addStmt->bindParam('catName', $_POST['categoryName']);
-            if (!$addStmt->execute()) {
-                die('Error!');
-            }
-        }
-    }
-
-?>
-
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
@@ -72,7 +48,20 @@
 			</div>
             <div class="col-md-2">
                 <h3>Προσθήκη Κατηγορίας</h3>
-                <form role="form" method="post">
+				<div id="categories" class="form-group">
+<?php
+foreach($controls->categories as $name){
+?>
+	<div class="btn-group btn-group-xs">
+	<button id="<?php echo $name['id']; ?>" type="button" class="category btn btn-default"><?php echo $name['name']; ?></button>
+    <button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+	</div>
+<?php
+}
+?>
+				</div>
+				<span class="label label-default">Click to edit</span>
+                <form id="categoryForm" role="form" method="post">
                     <div class="form-group">
                         <label for="categoryNameId">Όνομα Κατηγορίας</label>
                         <input type="text" id="categoryNameId" name="categoryName" class="form-control">

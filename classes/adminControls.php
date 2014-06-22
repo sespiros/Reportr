@@ -5,13 +5,35 @@ class adminControls
     public  $submit_successful  = false;
     public  $errors             = array();
     public  $messages           = array();
+	public  $categories			= array();
+	public  $showpage           = true;
 
     public function __construct()
     {
-        // if we have such a POST request, call the registerNewUser() method
+		//populate categories table
+		$this->fetchCategories();
+
+        // if we have such a POST request, call the markReportClosed() method
         if (isset($_POST["markClosed"])) {
             $this->markReportClosed($_POST['report_id'], $_POST['comment']);
         }
+
+		// handler for the add category
+		if (isset($_POST['categorySubmit']) && isset($_POST['categoryName'])) {
+			$this->addCategory($_POST['categoryName']);
+			// in order to return in ajax post only the required span and not the whole dashboard
+			$this->showpage = false;
+		}
+
+		// handler for the edit category name
+		if (isset($_POST['newName'])) {
+			$this->changeCategoryName($_POST['category_id'], $_POST['newName']);
+		}
+
+		// handler for the delete category
+		if (isset($_POST['del_cat_id'])) {
+			$this->deleteCategory($_POST['del_cat_id']);
+		}
 
     }
 
@@ -60,6 +82,78 @@ class adminControls
             $this->submit_successful = true;
 
 		}
+	}
+
+	private function addCategory($categoryName)
+	{
+		if ($this->databaseConnection()) {
+			$pdo = $this->db_connection;
+			$catStmt = $pdo->prepare('SELECT count(*) FROM web_categories WHERE name=:catName');
+			$catStmt->bindParam('catName', $categoryName);
+			if ($catStmt->execute()) {   
+				$row = $catStmt->fetch(PDO::FETCH_NUM);
+				$nrows = $row[0];
+			}
+
+			// only if category doesn't exist, add it
+			if ($nrows == 0) {
+				$addStmt = $pdo->prepare('INSERT INTO web_categories (name) VALUES (:catName)');
+				$addStmt->bindParam('catName', $categoryName);
+				if (!$addStmt->execute()) {
+					die('Error!');
+				}
+
+				$fetchStmt = $pdo->prepare('SELECT * FROM web_categories WHERE name=:catName');
+				$fetchStmt->bindParam('catName', $categoryName);
+				if ($fetchStmt->execute()) {
+					$row = $fetchStmt->fetch();
+				    echo '
+					<div class="btn-group btn-group-xs">
+					<button id="' .$row['id']. '" type="button" class="category btn btn-default">
+					' .$row['name']. '</button>
+					<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+					</div>';
+				}
+			}
+		}
+	}
+
+	private function changeCategoryName($category_id, $newName)
+	{
+		if ($this->databaseConnection()) {
+			$pdo = $this->db_connection;
+			$catStmt = $pdo->prepare('UPDATE web_categories SET name=:catName WHERE id=:cat_id');
+			$catStmt->bindParam('catName', $newName);
+			$catStmt->bindParam('cat_id', $category_id);
+			if (!$catStmt->execute()) {   
+				die('Error!');
+			}
+		}
+	}
+
+	private function deleteCategory($category_id)
+	{
+		if ($this->databaseConnection()) {
+			$pdo = $this->db_connection;
+			$catStmt = $pdo->prepare('DELETE FROM web_categories WHERE id=:cat_id');
+			$catStmt->bindParam('cat_id', $category_id);
+			if (!$catStmt->execute()) {   
+				die('Error!');
+			}
+		}
+	}
+
+	private function fetchCategories()
+	{
+		if ($this->databaseConnection()) {
+			$pdo = $this->db_connection;
+			$catStmt = $pdo->prepare('SELECT * FROM web_categories');
+			if ($catStmt->execute()) {   
+				$this->categories = $catStmt->fetchAll();
+			}
+
+		}
+
 	}
 
 

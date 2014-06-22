@@ -26,13 +26,15 @@ $controls = new adminControls();
 // ... ask if we are logged in here:
 if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
-    // for demonstration purposes, we simply show the "you are logged in" view.
-    if ($login->isUserAdmin() == true) {
-        include("views/dashboard.php");
-    } else {
-        header("Location:index.php");
-        die();
-    }
+	// for demonstration purposes, we simply show the "you are logged in" view.
+	if ($controls->showpage){//else just returns to ajax posts
+		if ($login->isUserAdmin() == true) {
+			include("views/dashboard.php");
+		} else {
+			header("Location:index.php");
+			die();
+		}
+	}
 } else {
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
