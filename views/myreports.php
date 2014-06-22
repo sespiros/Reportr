@@ -51,12 +51,13 @@
         while ($row = $stmt->fetch()) {
             $imgStmt = $pdo->prepare("SELECT path FROM web_report_images WHERE report_id=:rid");
             $imgStmt->bindParam(':rid', $row['id']);
+            $reportClosed = $row["status"] == 'Closed';
             if ($imgStmt->execute()) {
                 $images = $imgStmt->fetchAll();
             }
 ?>
 
-    <article class="report panel panel-default" id="report-<?php echo $row['id']; ?>">
+    <article class="report panel panel-<?php echo $reportClosed ? "success" : "primary"; ?>" id="report-<?php echo $row['id']; ?>">
         <div class="panel-heading" data-toggle="collapse" data-target="#report-<?php echo $row['id']; ?> .panel-body">
             <h3 class="panel-title"><?php echo $row['title']; ?></h3>
         </div>
@@ -83,7 +84,21 @@
                             <a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
                             <?php } ?>
                         </div>
-                        <span class="label label-info">Ανοιχτή</span>
+<?php
+                            if ($reportClosed) {
+?>
+                        <blockquote class="comment">
+                            <p><?php echo $row["comment"]; ?></p>
+                            <footer>admin</footer>
+                        </blockquote>
+                        <span class="label label-success">Κλειστή</span>
+<?php
+                            } else {
+?>
+                        <span class="label label-primary">Ανοιχτή</span>
+<?php
+                            }
+?>
                     </div>
                 </div>
             </div>
@@ -96,14 +111,9 @@
 ?>
 	</div>
 
-    <footer>
-    <div class="sticky-footer">
-        <div class="container text-center">
-            <h1 class="hidden">Footer</h1>
-            <p class="text-muted">&copy Copyright 2013.</p>
-        </div>
+    <div class="page-footer page-footer-red">
+        <p>footer</p>
     </div>
-    </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
