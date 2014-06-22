@@ -12,7 +12,7 @@ $(document).ready(function(){
 			total: totals,
 			page: 1,
 			maxVisible: 4
-		}).on("page", function(event, /* page number here */ num){
+		}).on("page", function(event, num){
 				$("#content-open").load('resources/openReports.php', {page: num});
 		});
 
@@ -41,20 +41,40 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
+
 	$('#content-closed').load('resources/closedReports.php', function() {
 		totals = parseInt($('#content-closed').find('#totalclosed').html());
 
-		// init bootpag
+		 //init bootpag
 		$('#page-selection-closed').bootpag({
 			total: totals,
 			page: 1,
 			maxVisible: 4
-		}).on("page", function(event, /* page number here */ num){
+		}).on("page", function(event, num){
 				$("#content-closed").load('resources/closedReports.php', {page: num});
 		});
 	});
+	
+	$(document).on("click", ".closebtn", function() {
+		/* Loipon o logos gia tin parakatw asxhmia einai o eksis:
+		 * otan epestrefa ta dynamika modals meta tin epilogi selidas
+		 * den mporousa na parw to form pou eixa ekei, kai oti tropos 
+		 * kai na dokimaza itan xalia. Opote afairesa to form apo ta modals
+		 * kai evala apla elements. Etsi pairnw apla ta dedomena gia to post
+		 * apo ta elements kai kataskeuazw ena form to opoio ginetai
+		 * non-ajax post sto dashboard.php.
+		 * */
+		var modalform = $(this).parent().parent();
+		var id = modalform.find('span[data-id]').data('id');
+		var comment = modalform.find('textarea').val(); 
+		var post_data = { report_id: id, comment: comment, markClosed: 1 };
+		console.log("before posting");
 
-	$("#f0").submit(); 
+		$('<form method="post" action="dashboard.php" role="form">' +
+			'<input name="report_id" value="' + id + '">' +
+			'<textarea name="comment">'+comment+'</textarea>' +
+			'<input name="markClosed">' +
+			'</form>').submit();
+	});
 });
 

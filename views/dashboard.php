@@ -68,7 +68,7 @@
 			</div>
 			<div class="col-md-5">
 				<div id="content-closed"></div>
-				<div id-"page-selection-closed"></div>
+				<div id="page-selection-closed"></div>
 			</div>
             <div class="col-md-2">
                 <h3>Προσθήκη Κατηγορίας</h3>

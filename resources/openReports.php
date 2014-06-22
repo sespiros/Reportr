@@ -7,7 +7,7 @@
 	}
 
 	// 1. Fetch reports
-	$max = 20;
+	$max = 3;
 	$count = 0;
 	if (isset($_POST['page']))
 		$page = $_POST['page'];
@@ -85,15 +85,26 @@ opote to afinw xima gia tin ora, BASIC FUNCTIONALITY ITHELES PARTO -->
 					<?php } ?>
 				</div>
 				<br>
-				<form id="f<?php echo $index; ?>" method="post" action="dashboard.php" role="form">
+<!--
+				<form id="test" class="modalform" method="post" action="dashboard.php" role="form">
 					<input type="hidden" name="report_id" value="<?php echo $row['id']; ?>">
 					<div class="form-group">
 						<textarea rows="3" class="form-control" name="comment" placeholder="Πρόσθήκη σχολίου"></textarea>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-danger form-control" name="markClosed">Κλείσιμο αναφοράς</button>
+						<button type="submit" class="closebtn btn btn-danger form-control" name="markClosed">Κλείσιμο αναφοράς</button>
 					</div>
 				</form>
+-->
+				<div class="modalform">
+					<span data-id="<?php echo $row['id']; ?>" class="hidden"></span>
+					<div class="form-group">
+						<textarea rows="3" class="form-control" name="comment" placeholder="Πρόσθήκη σχολίου"></textarea>
+					</div>
+					<div class="form-group">
+						<button class="closebtn btn btn-danger form-control" name="markClosed">Κλείσιμο αναφοράς</button>
+					</div>
+				</div>
 			</div>
 			</div> <!-- close modal-content -->
 		</div> <!-- close modal-dialog -->

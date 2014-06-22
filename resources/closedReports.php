@@ -7,7 +7,7 @@
 	}
 
 	// 1. Fetch reports
-	$max = 20;
+	$max = 3;
 	$count = 0;
 	if (isset($_POST['page']))
 		$page = $_POST['page'];
@@ -26,7 +26,7 @@
 ?>
 
 <h3>Αναφορές Αρχείου</h3>
-<div id="total" class="hidden"><?php echo ceil($count/$max); ?></div>
+<div id="totalclosed" class="hidden"><?php echo ceil($count/$max); ?></div>
 <table class="table table-striped">
 	<thead>
 		<tr>
