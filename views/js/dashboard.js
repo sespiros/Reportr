@@ -34,7 +34,7 @@ $(document).ready(function(){
 					position: mapOptions.center,
 					map: map[i]
 				});
-			}else{		
+			}else{
 				var center = map[i].getCenter();
 				google.maps.event.trigger(map[i], "resize");
 				map[i].setCenter(center);
@@ -54,11 +54,11 @@ $(document).ready(function(){
 				$("#content-closed").load('resources/closedReports.php', {page: num});
 		});
 	});
-	
+
 	$(document).on("click", ".closebtn", function() {
 		/* Loipon o logos gia tin parakatw asxhmia einai o eksis:
 		 * otan epestrefa ta dynamika modals meta tin epilogi selidas
-		 * den mporousa na parw to form pou eixa ekei, kai oti tropos 
+		 * den mporousa na parw to form pou eixa ekei, kai oti tropos
 		 * kai na dokimaza itan xalia. Opote afairesa to form apo ta modals
 		 * kai evala apla elements. Etsi pairnw apla ta dedomena gia to post
 		 * apo ta elements kai kataskeuazw ena form to opoio ginetai
@@ -66,7 +66,7 @@ $(document).ready(function(){
 		 * */
 		var modalform = $(this).parent().parent();
 		var id = modalform.find('span[data-id]').data('id');
-		var comment = modalform.find('textarea').val(); 
+		var comment = modalform.find('textarea').val();
 		var post_data = { report_id: id, comment: comment, markClosed: 1 };
 		console.log("before posting");
 
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
 	//delegate event to document in case of newlly added categories
 	$(document).on("click", ".catRemove", function() {
-		var cat_id = $(this).siblings().attr('id');	
+		var cat_id = $(this).siblings().attr('id');
 		var post_data = "del_cat_id="+cat_id;
 		$.post( "dashboard.php", post_data );
 		$(this).parent().remove();
@@ -108,7 +108,18 @@ $(document).ready(function(){
 
 	$(document).on("submit", "#categoryForm", function(e) {
 		e.preventDefault();
+		var catName = $(this).find('#categoryNameId').val();
+
 		var post_data = $(this).serialize() + "&categorySubmit="+encodeURIComponent(1);
+
+		// empty category name field
+		$(this).find('#categoryNameId').val('');
+
+		// check if category name is empty
+		if (/^$|^\s+$/.test(catName)) {
+			return;
+		}
+
 		$.post( "dashboard.php", post_data )
 			.done(function( data ) {
 				$('#categories').append(data);
@@ -119,4 +130,3 @@ $(document).ready(function(){
 
 
 });
-

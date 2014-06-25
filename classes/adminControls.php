@@ -101,7 +101,7 @@ class adminControls
 			$pdo = $this->db_connection;
 			$catStmt = $pdo->prepare('SELECT count(*) FROM web_categories WHERE name=:catName');
 			$catStmt->bindParam('catName', $categoryName);
-			if ($catStmt->execute()) {   
+			if ($catStmt->execute()) {
 				$row = $catStmt->fetch(PDO::FETCH_NUM);
 				$nrows = $row[0];
 			}
@@ -119,7 +119,7 @@ class adminControls
 				if ($fetchStmt->execute()) {
 					$row = $fetchStmt->fetch();
 				    echo '
-					<div class="btn-group btn-group-xs">
+					<div class="btn-group btn-group-sm">
 					<button id="' .$row['id']. '" type="button" class="category btn btn-default">
 					' .$row['name']. '</button>
 					<button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
@@ -136,7 +136,7 @@ class adminControls
 			$catStmt = $pdo->prepare('UPDATE web_categories SET name=:catName WHERE id=:cat_id');
 			$catStmt->bindParam('catName', $newName);
 			$catStmt->bindParam('cat_id', $category_id);
-			if (!$catStmt->execute()) {   
+			if (!$catStmt->execute()) {
 				die('Error!');
 			}
 		}
@@ -148,7 +148,7 @@ class adminControls
 			$pdo = $this->db_connection;
 			$catStmt = $pdo->prepare('DELETE FROM web_categories WHERE id=:cat_id');
 			$catStmt->bindParam('cat_id', $category_id);
-			if (!$catStmt->execute()) {   
+			if (!$catStmt->execute()) {
 				die('Error!');
 			}
 		}
@@ -163,10 +163,10 @@ class adminControls
 			if ($checkStmt->execute()) {
 				$row = $checkStmt->fetch();
 
-				if ($row['user_type'] == 0) {			
+				if ($row['user_type'] == 0) {
 					//$userStmt = $pdo->prepare('DELETE FROM web_users WHERE user_id=:user_id');
 					//$userStmt->bindParam('user_id', $user_id);
-					//if (!$userStmt->execute()) {   
+					//if (!$userStmt->execute()) {
 						//die('Error!');
 					//}
 					$this->messages[] = "User with id " . $user_id . " deleted successfully";
@@ -182,7 +182,7 @@ class adminControls
 		if ($this->databaseConnection()) {
 			$pdo = $this->db_connection;
 			$catStmt = $pdo->prepare('SELECT * FROM web_categories');
-			if ($catStmt->execute()) {   
+			if ($catStmt->execute()) {
 				$this->categories = $catStmt->fetchAll();
 			}
 
@@ -195,7 +195,7 @@ class adminControls
 		if ($this->databaseConnection()) {
 			$pdo = $this->db_connection;
 			$catStmt = $pdo->prepare('SELECT * FROM web_users');
-			if ($catStmt->execute()) {   
+			if ($catStmt->execute()) {
 				$this->users = $catStmt->fetchAll();
 			}
 
