@@ -55,9 +55,9 @@ $(window).load(function() {
     };
 
     $('#add-file-input').click(function() {
-        var size = $('input[type="file"]').size(); 
+        var size = $('input[type="file"]').size();
         if ( size < 4) {
-            $(this).before('<input class="upload" type="file" accept="image/*;capture=camera" name="images[]">');
+            $(this).parent().append('<input class="upload" type="file" accept="image/*;capture=camera" name="images[]">');
         }
     });
 });
@@ -86,15 +86,15 @@ $("#ajaxform").submit(function(e)
         window.getComputedStyle(content[0]).opacity;
 
         content[0].style.opacity = 1;
-        
+
         if ($( data ).find(".popup").hasClass("alert-info")) {
             document.getElementById("ajaxform").reset();
         }
- 
+
     },
-     error: function(jqXHR, textStatus, errorThrown) 
+     error: function(jqXHR, textStatus, errorThrown)
      {
-     }          
+     }
     });
     e.preventDefault(); //STOP default action
 });

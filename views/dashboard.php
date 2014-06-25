@@ -53,7 +53,7 @@
 foreach($controls->categories as $name){
 ?>
 	<div class="btn-group btn-group-sm">
-	<button id="<?php echo $name['id']; ?>" type="button" class="category btn btn-default"><?php echo $name['name']; ?></button>
+	<button id="<?php echo $name['id']; ?>" type="button" class="category btn btn-default"><span class="editable"><?php echo $name['name']; ?></span></button>
     <button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 	</div>
 <?php

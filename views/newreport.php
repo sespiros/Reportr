@@ -50,7 +50,7 @@
                         <!--<label for="category_field">Κατηγορία</label>-->
                         <select id="category_field" class="form-control" name="category">
                         <option value="" disabled selected>Επέλεξε κατηγορία</option>
-                        <?php 
+                        <?php
                             require_once('config/connect.php');
 
                             $stmt = $pdo->prepare("SELECT * FROM web_categories");
@@ -75,7 +75,7 @@
                         <input class="hidden" id="lon_field" type="text" name="longitude">
                         <span id="debug"></span>
                     </div>
-                    <div class="form-group clearfix"> 
+                    <div class="form-group clearfix" id="addImages"> 
                         <span id="add-file-input" class="fontawesome-plus pull-left"></span>
                         <input type="file" accept="image/*;capture=camera" name="images[]">
                     </div>
