@@ -42,7 +42,8 @@
 
     <h2 class="coloured-banner1 text-center">Οι αναφορές μου</h2>
     <div class="container">
-<?php 
+        <div id="accordion" class="panel-group">
+<?php
     require_once('config/connect.php');
 
     $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.report_id WHERE submitter_id=:sid");
@@ -57,11 +58,12 @@
             }
 ?>
 
-    <article class="report panel panel-<?php echo $reportClosed ? "success" : "primary"; ?>" id="report-<?php echo $row['id']; ?>">
-        <div class="panel-heading" data-toggle="collapse" data-target="#report-<?php echo $row['id']; ?> .panel-body">
+    <article class="report panel panel-<?php echo $reportClosed ? "success" : "warning"; ?>" id="report-<?php echo $row['id']; ?>">
+        <div class="panel-heading" data-toggle="collapse" data-target="#report-<?php echo $row['id']; ?>-content" data-parent="#accordion">
             <h3 class="panel-title"><?php echo $row['title']; ?></h3>
         </div>
-        <div class="panel-body collapse in">
+        <div id="report-<?php echo $row['id']; ?>-content" class="collapse">
+        <div class="panel-body">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
@@ -76,9 +78,9 @@
                         <?php echo $row['description']; ?>
                         </p>
                         <div class="image-grid clearfix">
-                            <?php 
+                            <?php
                             $imgId = 0;
-                            foreach($images as $reportImage) { 
+                            foreach($images as $reportImage) {
                             $imgId++;
                             ?>
                             <a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
@@ -103,12 +105,14 @@
                 </div>
             </div>
         </div>
+    </div>
     </article>
 
 <?php
         }
     }
 ?>
+        </div>
 	</div>
 
     <div class="page-footer page-footer-red">
