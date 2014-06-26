@@ -41,12 +41,18 @@
 <?php
     if ($stmt->execute()) {
         while ($row = $stmt->fetch()) {
+            // find admin who closed report
+            $adminStmt = $pdo->prepare("SELECT user_name FROM web_users WHERE user_id=" . $row["closer_id"]);
+            if ($adminStmt->execute()) {
+                $adminRow = $adminStmt->fetch(PDO::FETCH_ASSOC);
+                $admin = $adminRow["user_name"];
+            }
 ?>
 		<tr>
 			<td><?php echo $row["id"]; ?></td>
 			<td><?php echo $row["title"]; ?></td>
 			<td><?php echo $row["time_closed"]; ?></td>
-			<td>admin</td>
+                        <td><?php echo $admin; ?></td>
 		</tr>
 <?php
 		}
