@@ -46,7 +46,7 @@
 <?php
     require_once('config/connect.php');
 
-    $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.report_id WHERE submitter_id=:sid");
+    $stmt = $pdo->prepare("SELECT * FROM web_reports INNER JOIN web_report_details on web_reports.id=web_report_details.report_id WHERE submitter_id=:sid ORDER BY time_submitted DESC");
     $stmt->bindParam(':sid', $_SESSION['user_id']);
     if ($stmt->execute()) {
         while ($row = $stmt->fetch()) {
@@ -56,11 +56,15 @@
             if ($imgStmt->execute()) {
                 $images = $imgStmt->fetchAll();
             }
+
+            // format times
+            $submitDate = date('H:s, d/m/Y', strtotime($row["time_submitted"]));
+            $closeDate = date('H:s, d/m/Y', strtotime($row["time_closed"]));
 ?>
 
     <article class="report panel panel-<?php echo $reportClosed ? "success" : "warning"; ?>" id="report-<?php echo $row['id']; ?>">
         <div class="panel-heading" data-toggle="collapse" data-target="#report-<?php echo $row['id']; ?>-content" data-parent="#accordion">
-            <h3 class="panel-title"><?php echo $row['title']; ?></h3>
+        <h3 class="panel-title"><?php echo $row['title']; ?> στις <?php echo $submitDate; ?></h3>
         </div>
         <div id="report-<?php echo $row['id']; ?>-content" class="collapse">
         <div class="panel-body">
@@ -91,13 +95,13 @@
 ?>
                         <blockquote class="comment">
                             <p><?php echo $row["comment"]; ?></p>
-                            <footer>admin</footer>
+                            <footer>admin (<?php echo $closeDate; ?>)</footer>
                         </blockquote>
                         <span class="label label-success">Κλειστή</span>
 <?php
                             } else {
 ?>
-                        <span class="label label-primary">Ανοιχτή</span>
+                        <span class="label label-warning">Ανοιχτή</span>
 <?php
                             }
 ?>
