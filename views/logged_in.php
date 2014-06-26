@@ -26,6 +26,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="rss/index.php" title="RSS Feed"><span class="fontawesome-rss"></span></a></li>
                 <li class="dropdown">
                 <a href="#" class="navbar-brand dropdown-toggle user-img" data-toggle="dropdown"><?php echo $_SESSION['user_name'] . " " . $login->user_gravatar_image_tag?></a>
                     <ul class="dropdown-menu dropdown-menu-right">

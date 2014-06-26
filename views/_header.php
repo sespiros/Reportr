@@ -12,7 +12,7 @@
     <link href="views/css/reportr.css" rel="stylesheet">
     <link href="views/css/lightbox.css" rel="stylesheet">
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=fontawesome">
-    <link href='http://fonts.googleapis.com/css?family=Roboto&amp;subset=latin,greek' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,greek' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -16,6 +16,7 @@
 
             <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="rss/index.php" title="RSS Feed"><span class="fontawesome-rss"></span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
                     <ul class="dropdown-menu dropdown-login">
