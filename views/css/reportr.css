@@ -118,6 +118,10 @@ header p
     cursor: pointer;
 }
 
+.report .panel-heading .small {
+    font-size: 85%;
+}
+
 input[type=file] {
     margin-bottom: 15px;
     margin-left: 20px;

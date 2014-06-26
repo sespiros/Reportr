@@ -58,13 +58,23 @@
             }
 
             // format times
-            $submitDate = date('H:s, d/m/Y', strtotime($row["time_submitted"]));
-            $closeDate = date('H:s, d/m/Y', strtotime($row["time_closed"]));
+            $submitDate = date('d/n στις H:i', strtotime($row["time_submitted"]));
+            $closeDate = date('d/n στις H:i', strtotime($row["time_closed"]));
+
+            // find user who closed the report
+            if ($reportClosed) {
+                $adminStmt = $pdo->prepare("SELECT user_name FROM web_users WHERE user_id = " . $row["closer_id"]);
+                if ($adminStmt->execute()) {
+                    $adminRow = $adminStmt->fetch(PDO::FETCH_ASSOC);
+                    $admin = $adminRow["user_name"];
+                }
+            }
+
 ?>
 
     <article class="report panel panel-<?php echo $reportClosed ? "success" : "warning"; ?>" id="report-<?php echo $row['id']; ?>">
         <div class="panel-heading" data-toggle="collapse" data-target="#report-<?php echo $row['id']; ?>-content" data-parent="#accordion">
-        <h3 class="panel-title"><?php echo $row['title']; ?> στις <?php echo $submitDate; ?></h3>
+        <h3 class="panel-title"><?php echo $row['title']; ?> <span class="small pull-right"><?php echo $submitDate; ?></span></h3>
         </div>
         <div id="report-<?php echo $row['id']; ?>-content" class="collapse">
         <div class="panel-body">
@@ -95,7 +105,7 @@
 ?>
                         <blockquote class="comment">
                             <p><?php echo $row["comment"]; ?></p>
-                            <footer>admin (<?php echo $closeDate; ?>)</footer>
+                            <footer><?php echo $admin; ?>, <?php echo $closeDate; ?></footer>
                         </blockquote>
                         <span class="label label-success">Κλειστή</span>
 <?php

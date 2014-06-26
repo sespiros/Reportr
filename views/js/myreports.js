@@ -16,7 +16,7 @@
 
                 var mapOptions = {
                     center: new google.maps.LatLng(lat, long),
-                    zoom: 16,
+                    zoom: 14,
                     disableDefaultUI: true
                 };
                 var map = new google.maps.Map(that.siblings('.small-map-view')[0], mapOptions);
