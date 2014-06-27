@@ -121,7 +121,8 @@ class adminControls
 				    echo '
 					<div class="btn-group btn-group-sm">
 					<button id="' .$row['id']. '" type="button" class="category btn btn-default">
-					' .$row['name']. '</button>
+                                        <span class="editable">
+					' .$row['name']. '</span></button>
 					<button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 					</div>';
 				}
@@ -131,15 +132,24 @@ class adminControls
 
 	private function changeCategoryName($category_id, $newName)
 	{
-		if ($this->databaseConnection()) {
-			$pdo = $this->db_connection;
-			$catStmt = $pdo->prepare('UPDATE web_categories SET name=:catName WHERE id=:cat_id');
-			$catStmt->bindParam('catName', $newName);
-			$catStmt->bindParam('cat_id', $category_id);
-			if (!$catStmt->execute()) {
-				die('Error!');
-			}
-		}
+            if ($this->databaseConnection()) {
+                $pdo = $this->db_connection;
+                $catStmt = $pdo->prepare('SELECT count(*) FROM web_categories WHERE name=:catName');
+                $catStmt->bindParam('catName', $newName);
+                if ($catStmt->execute()) {
+                    $row = $catStmt->fetch(PDO::FETCH_NUM);
+                    $nrows = $row[0];
+                }
+
+                if ($nrows === 0) {
+                    $catStmt = $pdo->prepare('UPDATE web_categories SET name=:catName WHERE id=:cat_id');
+                    $catStmt->bindParam('catName', $newName);
+                    $catStmt->bindParam('cat_id', $category_id);
+                    if (!$catStmt->execute()) {
+                        die('Error!');
+                    }
+                }
+            }
 	}
 
 	private function deleteCategory($category_id)
