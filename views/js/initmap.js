@@ -11,7 +11,8 @@ $(document).ready(function(){
 
 function refreshStats(){
 	$('#stats').load('resources/stats.php', function(){
-		setTimeout(refreshStats, 5000);
+		//setTimeout(refreshStats, 5000);
+            $('#map-canvas').height($(window).height()-$('.navbar').height()-$('.stat').outerHeight());
 	});
 }
 
@@ -35,10 +36,11 @@ function initialize() {
 		marker = addMarker(p);
 		marker.setAnimation( google.maps.Animation.DROP );
 	}
+
 	
 	map.fitBounds(markerBounds);
 	oldMarkers = markers;
-	setTimeout(updateMarkers, 5000);
+	//setTimeout(updateMarkers, 5000);
 }
 
 function updateMarkers() {

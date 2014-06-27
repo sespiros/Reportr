@@ -64,7 +64,7 @@ header p
     text-align: center;
     padding: 30px 10px;
     background-color: #FFF;
-    height: 293px;
+    height: 250px;
 }
 
 .stat:before {
@@ -178,6 +178,8 @@ body {
     line-height: 350px;
     font-size: 5em;
     text-align: center;
+    border-color: #222222;
+    color: #222;
 }
 
 .page-footer-red {

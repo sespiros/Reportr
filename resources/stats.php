@@ -33,25 +33,25 @@
 		<div class="col-xs-6 col-sm-3 stat">
 			<div class="content">
 				<h1><span class="fontawesome-folder-close-alt"></span> <?php echo $totalReports; ?> </h1>
-				<h3>Total Reports</h3>
+				<h3>Συνολικές Αναφορές</h3>
 			</div>
 		</div>
 		<div class="col-xs-6 col-sm-3 stat">
 		<div class="content">
 			<h1><span class="fontawesome-folder-open-alt"></span> <?php echo $openReports; ?> </h1>
-			<h3>Open Reports</h3>
+			<h3>Ανοιχτές Αναφορές</h3>
 		</div>
 		</div>
 		<div class="col-xs-6 col-sm-3 stat">
 		<div class="content">
 			<h1><span class="fontawesome-ok"></span> <?php echo ($totalReports - $openReports); ?> </h1>
-			<h3>Closed Reports</h3>
+			<h3>Αναφορές Αρχείου</h3>
 		</div>
 		</div>
 		<div class="col-xs-6 col-sm-3 stat">
 		<div class="content">
-			<h1><span class="fontawesome-bar-chart"></span> <?php echo $averageTime; ?> <small>min</small> </h1>
-			<h3>Average response time</h3>
+			<h1><span class="fontawesome-bar-chart"></span> <?php echo $averageTime; ?> <small>λεπτά</small> </h1>
+			<h3>Μέσος χρόνος επίλυσης αναφορών</h3>
 		</div>
 			
 		</div>
