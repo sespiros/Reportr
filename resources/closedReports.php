@@ -13,15 +13,16 @@
 		$page = $_POST['page'];
 	else{
 		$page = 1;
-		$sql = "
-			SELECT * FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE status='Closed' ORDER BY time_closed";
+		$sql = "SELECT COUNT(*) FROM web_reports WHERE status='Closed'";
 		$all = $pdo->prepare($sql);
-		if($all->execute())
-			$count = count($all->fetchAll());
+		if($all->execute()) {
+                    $allRes = $all->fetch();
+                    $count = $allRes[0];
+                }
 	}
 
 	$sql1 = "
-		SELECT * FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE status='Closed' ORDER BY time_closed LIMIT ". $max*($page-1) . "," . $max;
+                    SELECT web_reports.id, title, time_closed, web_categories.name, closer_id FROM `web_reports` INNER JOIN web_report_details ON web_reports.id=web_report_details.report_id INNER JOIN web_categories ON web_categories.id = web_report_details.category_id WHERE status='Closed' ORDER BY category_id, time_closed DESC LIMIT ". $max*($page-1) . "," . $max;
 	$stmt = $pdo->prepare($sql1);
 ?>
 
@@ -32,6 +33,7 @@
 		<tr>
 			<th>Αριθμός αναφοράς</th>
 			<th>Τίτλος</th>
+			<th>Κατηγορία</th>
 			<th>Ημερομηνία επίλυσης</th>
 			<th>Admin</th>
 		</tr>
@@ -51,6 +53,7 @@
 		<tr>
 			<td><?php echo $row["id"]; ?></td>
 			<td><?php echo $row["title"]; ?></td>
+			<td><?php echo $row["name"]; ?></td>
 			<td><?php echo $row["time_closed"]; ?></td>
                         <td><?php echo $admin; ?></td>
 		</tr>

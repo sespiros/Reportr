@@ -13,15 +13,16 @@
 		$page = $_POST['page'];
 	else{
 		$page = 1;
-		$sql = "
-			SELECT * FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE status='Open' ORDER BY time_submitted";
+		$sql = "SELECT COUNT(*) FROM web_reports WHERE status='Open'";
 		$all = $pdo->prepare($sql);
-		if($all->execute())
-			$count = count($all->fetchAll());
+		if($all->execute()) {
+                    $allRes = $all->fetch();
+                    $count = $allRes[0];
+                }
 	}
 
 	$sql1 = "
-		SELECT * FROM web_reports INNER JOIN web_report_details ON web_reports.id = web_report_details.report_id WHERE status='Open' ORDER BY time_submitted LIMIT ". $max*($page-1) . "," . $max;
+		SELECT web_reports.id, title, time_submitted, web_categories.name FROM `web_reports` INNER JOIN web_report_details ON web_reports.id=web_report_details.report_id INNER JOIN web_categories ON web_categories.id = web_report_details.category_id WHERE status='Open' ORDER BY category_id, time_submitted DESC LIMIT ". $max*($page-1) . "," . $max;
 	$stmt = $pdo->prepare($sql1);
 ?>
 
@@ -33,6 +34,7 @@
 			<th>Αριθμός αναφοράς</th>
 			<th>Τίτλος</th>
 			<th>Ώρα υποβολής</th>
+			<th>Κατηγορία</th>
 			<th>Ενέργειες</th>
 		</tr>
 	</thead>
@@ -52,6 +54,7 @@
 			<td><?php echo $row["id"]; ?></td>
 			<td><?php echo $row["title"]; ?></td>
 			<td><?php echo $row["time_submitted"]; ?></td>
+			<td><?php echo $row["name"]; ?></td>
 			<td><a data-toggle="modal" data-target="#<?php echo $index; ?>" href="#">Προβολή</a></td>
 		</tr>
 		<!-- Modal -->
