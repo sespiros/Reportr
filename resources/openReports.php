@@ -14,7 +14,7 @@
 		$page = $_POST['page'];
 	else{
 		$page = 1;
-		$sql = "SELECT COUNT(*) FROM web_reports WHERE status='Closed'";
+		$sql = "SELECT COUNT(*) FROM web_reports WHERE status='Open'";
 		$all = $pdo->prepare($sql);
 		//den sou xei pei i mama sou na min peirazeis ta pragmata apo ta alla paidakia?
 		if($all->execute()){
@@ -42,7 +42,7 @@
     		</tr>
     	</thead>
     	<tbody>
-    
+
     <?php
         if ($stmt->execute()) {
     		$index = 0;
@@ -69,7 +69,7 @@
     				<h4 class="modal-title" id="myModalLabel"><?php echo $row["title"]; ?></h4>
     			</div>
     			<div class="modal-body">
-    <!-- to content tou modal einai opws einai sto my reports otan allakseis auto tha allaksw kai auto 
+    <!-- to content tou modal einai opws einai sto my reports otan allakseis auto tha allaksw kai auto
     opote to afinw xima gia tin ora, BASIC FUNCTIONALITY ITHELES PARTO -->
     				<div class="small-map-data hidden">
     					<span data-lat="<?php echo $row['latitude']; ?>"></span>
@@ -82,9 +82,9 @@
     				<span class="label label-info">Ανοιχτή</span>
     				</p>
     				<div class="image-grid clearfix">
-    					<?php 
+    					<?php
     					$imgId = 0;
-    					foreach($images as $reportImage) { 
+    					foreach($images as $reportImage) {
     					$imgId++;
     					?>
     					<a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>

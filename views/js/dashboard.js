@@ -126,7 +126,7 @@ $(document).ready(function(){
 			});
 	});
 
-	
+
 	$(document).on("click", ".editUser", function() {
 	//$('.editUser').click(function() {
 		var username = $(this).parent().siblings("td.name").text();
@@ -134,7 +134,7 @@ $(document).ready(function(){
 
 		//handle the click of the nav edit for the same user
 		if (!username){
-			username = $(document).find('.user-img').text(); 
+			username = $(document).find('.user-img').text();
 		}
 		username = username.trim();
 
@@ -145,7 +145,7 @@ $(document).ready(function(){
 			  $('#modalUserForm').empty().append(content);
 		  })
 	});
-		
+
 
 
 

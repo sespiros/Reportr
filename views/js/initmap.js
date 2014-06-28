@@ -11,8 +11,8 @@ $(document).ready(function(){
 
 function refreshStats(){
 	$('#stats').load('resources/stats.php', function(){
-		//setTimeout(refreshStats, 5000);
-            $('#map-canvas').height($(window).height()-$('.navbar').height()-$('.stat').outerHeight());
+    $('#map-canvas').height($(window).height()-$('.navbar').height()-$('.stat').outerHeight());
+		setTimeout(refreshStats, 5000);
 	});
 }
 
@@ -24,7 +24,7 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 	infowindow = new google.maps.InfoWindow({
 		maxWidth: 200
-	});	
+	});
 	markerBounds = new google.maps.LatLngBounds();
 
 	var data = parseXML('resources/last.php');
@@ -37,10 +37,10 @@ function initialize() {
 		marker.setAnimation( google.maps.Animation.DROP );
 	}
 
-	
+
 	map.fitBounds(markerBounds);
 	oldMarkers = markers;
-	//setTimeout(updateMarkers, 5000);
+	setTimeout(updateMarkers, 5000);
 }
 
 function updateMarkers() {
@@ -71,7 +71,7 @@ function addMarker(p) {
 	var latlng = new google.maps.LatLng(lat, lon);
 
 	markerBounds.extend(latlng);
-	
+
 	var marker = new google.maps.Marker({
 		position: latlng,
 		map: map,
@@ -80,7 +80,7 @@ function addMarker(p) {
 	if (statusMsg == "Closed") {
 		marker.setIcon(greenIcon);
 	}
-	
+
 	//add Infowindows
 	var contentString = '<div>'+
 		'<h4>'+title+'</h4>'+
@@ -88,7 +88,7 @@ function addMarker(p) {
 		'<p>' + description +'</p>'+
 		'</div>'+
 		'</div>';
-	
+
 	google.maps.event.addListener(marker, 'click', (function(contentString) {
 		return function() {
 			//map.setZoom(10);
@@ -125,7 +125,7 @@ google.maps.event.addDomListener(window, 'resize', initialize);
 google.maps.event.addDomListener(window, 'load', initialize);
 
 	$(document).on("click", ".editUser", function() {
-		username = $(document).find('.user-img').text(); 
+		username = $(document).find('.user-img').text();
 		username = username.trim();
 
 		var post_data = { user_name: username, user_edit: 1 };
