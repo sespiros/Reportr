@@ -174,11 +174,11 @@ class adminControls
 				$row = $checkStmt->fetch();
 
 				if ($row['user_type'] == 0) {
-					//$userStmt = $pdo->prepare('DELETE FROM web_users WHERE user_id=:user_id');
-					//$userStmt->bindParam('user_id', $user_id);
-					//if (!$userStmt->execute()) {
-						//die('Error!');
-					//}
+                                        $userStmt = $pdo->prepare('DELETE FROM web_users WHERE user_id=:user_id');
+                                        $userStmt->bindParam('user_id', $user_id);
+                                        if (!$userStmt->execute()) {
+                                                die('Error!');
+                                        }
 					$this->messages[] = "Ο χρήστης με αριθμό " . $user_id . " διαγράφηκε επιτυχώς";
 				}else{
 					$this->errors[] = "Δε είναι δυνατή η διαγραφή διαχειριστή!";

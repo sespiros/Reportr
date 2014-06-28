@@ -1,5 +1,6 @@
 <?php
 	require_once('../config/config.php');
+        require_once('../config/human_dates.php');
 	try {
 		$pdo = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8', DB_USER, DB_PASS);
 	} catch (PDOException $e) {
@@ -28,38 +29,40 @@
 
 <h3>Αναφορές Αρχείου</h3>
 <div id="totalclosed" class="hidden"><?php echo ceil($count/$max); ?></div>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Αριθμός αναφοράς</th>
-			<th>Τίτλος</th>
-			<th>Κατηγορία</th>
-			<th>Ημερομηνία επίλυσης</th>
-			<th>Admin</th>
-		</tr>
-	</thead>
-	<tbody>
-
-<?php
-    if ($stmt->execute()) {
-        while ($row = $stmt->fetch()) {
-            // find admin who closed report
-            $adminStmt = $pdo->prepare("SELECT user_name FROM web_users WHERE user_id=" . $row["closer_id"]);
-            if ($adminStmt->execute()) {
-                $adminRow = $adminStmt->fetch(PDO::FETCH_ASSOC);
-                $admin = $adminRow["user_name"];
-            }
-?>
-		<tr>
-			<td><?php echo $row["id"]; ?></td>
-			<td><?php echo $row["title"]; ?></td>
-			<td><?php echo $row["name"]; ?></td>
-			<td><?php echo $row["time_closed"]; ?></td>
-                        <td><?php echo $admin; ?></td>
-		</tr>
-<?php
-		}
-    }
-?>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-striped">
+    	<thead>
+    		<tr>
+    			<th>Αριθμός αναφοράς</th>
+    			<th>Τίτλος</th>
+    			<th>Κατηγορία</th>
+    			<th>Ημερομηνία επίλυσης</th>
+    			<th>Admin</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    
+    <?php
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch()) {
+                // find admin who closed report
+                $adminStmt = $pdo->prepare("SELECT user_name FROM web_users WHERE user_id=" . $row["closer_id"]);
+                if ($adminStmt->execute()) {
+                    $adminRow = $adminStmt->fetch(PDO::FETCH_ASSOC);
+                    $admin = $adminRow["user_name"];
+                }
+    ?>
+    		<tr>
+    			<td><?php echo $row["id"]; ?></td>
+    			<td><?php echo $row["title"]; ?></td>
+    			<td><?php echo $row["name"]; ?></td>
+    			<td title="<?php echo $row["time_closed"]; ?>">πριν <?php echo get_date_diff($row["time_closed"], time()); ?></td>
+                            <td><?php echo $admin; ?></td>
+    		</tr>
+    <?php
+    		}
+        }
+    ?>
+        </tbody>
+    </table>
+</div>

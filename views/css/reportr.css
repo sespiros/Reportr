@@ -144,6 +144,17 @@ input[type=file] {
     margin: 5px 2px;
 }
 
+/*overwrite bootstrap styles*/
+.table>thead>tr>th {
+    padding: 12px;
+    border-bottom: none;
+}
+
+.table>tbody>tr>td {
+    padding: 12px;
+    border-top: none;
+}
+
 /* -- Helper rules -- */
 .clear
 {

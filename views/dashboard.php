@@ -38,14 +38,10 @@
     <h2 class="coloured-banner3 text-center">Dashboard</h2>
     <div class="container">
         <div class="row">
-			<div class="col-md-5">
-				<div id="content-open"></div>
-				<div id="page-selection-open"></div>
-			</div>
-			<div class="col-md-5">
-				<div id="content-closed"></div>
-				<div id="page-selection-closed"></div>
-			</div>
+            <div class="col-md-10">
+                <div id="content-open"></div>
+                <div id="page-selection-open"></div>
+            </div>
             <div class="col-md-2">
                 <h3>Κατηγορίες <small>κλικ για επεξεργασία</small></h3>
 				<div id="categories" class="form-group">
@@ -67,6 +63,12 @@ foreach($controls->categories as $name){
                     </div>
                     <button type="submit" name="categorySubmit" class="btn btn-primary">Προσθήκη</button>
                 </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="content-closed"></div>
+                <div id="page-selection-closed"></div>
             </div>
         </div>
 		<div class ="row">
