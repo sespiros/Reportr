@@ -15,10 +15,10 @@
 
             <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="index.php">Incident Map</a></li>
-                <li><a href="myreports.php#">My Reports</a></li>
-                <li><a href="newreport.php">New Report</a></li>
-                <li class="active"><a href="#">Dashboard</a></li>
+                <li><a href="index.php">Χάρτης περιστατικών</a></li>
+                <li><a href="myreports.php#">Οι αναφορές μου</a></li>
+                <li><a href="newreport.php">Νέα αναφορά</a></li>
+                <li class="active"><a href="#">Διαχείριση</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

@@ -271,9 +271,9 @@ class Login
         //// Your code here to handle a successful verification
 
         if (empty($user_name)) {
-            $this->errors[] = "Username/Email cannot be empty";
+            $this->errors[] = "Το ψευδώνυμο/e-mail δε μπορεί να είναι κενό.";
         } else if (empty($user_password)) {
-            $this->errors[] = "Password cannot be empty";
+            $this->errors[] = "Ο κωδικός δε μπορεί να είναι κενός.";
 
         // if POST data (from login form) contains non-empty user_name and non-empty user_password
         } else {
@@ -297,9 +297,9 @@ class Login
             if (! isset($result_row->user_id)) {
                 // was MESSAGE_USER_DOES_NOT_EXIST before, but has changed to MESSAGE_LOGIN_FAILED
                 // to prevent potential attackers showing if the user exists
-                $this->errors[] = "Invalid username or password";
+                $this->errors[] = "Λάθος όνομα χρήστη / κωδικός.";
             } else if (($result_row->user_failed_logins >= 2) && ($result_row->user_last_failed_login > (time() - 30))) {
-                    $this->errors[] = "Slow down dude";
+                    $this->errors[] = "Φέεετα...";
 
             // using PHP 5.5's password_verify() function to check if the provided passwords fits to the hash of that user's password
             } else if (! password_verify($user_password, $result_row->user_password_hash)) {
@@ -309,7 +309,7 @@ class Login
                         . 'WHERE user_name = :user_name OR user_email = :user_name');
                 $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => time()));
 
-                $this->errors[] = "Invalid username or password";
+                $this->errors[] = "Λάθος όνομα χρήστη / κωδικός.";
             } else {
                 // write user data into PHP SESSION [a file on your server]
                 $_SESSION['user_id'] = $result_row->user_id;
@@ -456,7 +456,7 @@ class Login
         $user_name = substr(trim($user_name), 0, 64);
 
         if (!empty($user_name) && $user_name == $_SESSION['user_name']) {
-            $this->errors[] = "New and old username are the same";
+            $this->errors[] = "Το παλιό και το νέο όνομα χρήστη είναι τα ίδια.";
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
         // TODO: maybe this pattern should also be implemented in Registration.php (or other way round)
@@ -468,7 +468,7 @@ class Login
             $result_row = $this->getUserData($user_name);
 
             if (isset($result_row->user_id)) {
-                $this->errors[] = "This username already exists";
+                $this->errors[] = "To όνομα χρήστη υπάρχει.";
             } else {
                 // write user's new data into database
                 $query_edit_user_name = $this->db_connection->prepare('UPDATE web_users SET user_name = :user_name WHERE user_id = :user_id');
@@ -478,9 +478,9 @@ class Login
 
                 if ($query_edit_user_name->rowCount()) {
                     $_SESSION['user_name'] = $user_name;
-                    $this->messages[] = "Username changed successfully" . $user_name;
+                    $this->messages[] = "Το όνομα χρήστη άλλαξε με επιτυχία: " . $user_name;
                 } else {
-                    $this->errors[] = "Username change failed";
+                    $this->errors[] = "Η αλλαγή ονόματος χρήστη απέτυχε.";
                 }
             }
         }

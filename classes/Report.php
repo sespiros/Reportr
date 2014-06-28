@@ -30,7 +30,7 @@ class Report
                 $this->db_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
                 return true;
             } catch (PDOException $e) {
-                $this->errors[] = "Database error";
+                $this->errors[] = "Σφάλμα Βάσης";
                 return false;
             }
         }
@@ -45,13 +45,13 @@ class Report
         $this->imagecheck();
         // check provided data validity
         if (empty($title)) {
-            $this->errors[] = "Title field cannot be empty";
+            $this->errors[] = "Το πεδίο τίτλου δε μπορεί να είναι άδειο.";
         } elseif (!isset($_POST['category'])) {
-            $this->errors[] = "Select one category";
+            $this->errors[] = "Επιλέξτε μια κατηγορία.";
         } elseif (strlen($description) < 5) {
-            $this->errors[] = "Description must be at least 5 chars";
+            $this->errors[] = "Η περιγραφή πρέπει να είναι τουλάχιστον 5 χαρακτήρες.";
         } elseif ($this->image_error == true) {
-             $this->errors[] = "One or more of the submitted files are invalid";
+             $this->errors[] = "Ένα ή περισσότερα από τα αρχεία είναι άκυρα.";
         // finally if all the above checks are ok
         } else if ($this->databaseConnection()) {
 
@@ -101,7 +101,7 @@ class Report
                 $image_insert->execute();
             }
 
-            $this->messages[] = "Added new report";
+            $this->messages[] = "Προστέθηκε νέα αναφορά!";
             $this->submit_successful = true;
         }
     }

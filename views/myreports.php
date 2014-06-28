@@ -16,12 +16,12 @@
 
             <div class="collapse navbar-collapse" id="main-nav">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="index.php">Incident Map</a></li>
-                <li class="active"><a href="#">My Reports</a></li>
-                <li><a href="newreport.php">New Report</a></li>
+                <li><a href="index.php">Χάρτης περιστατικών</a></li>
+                <li class="active"><a href="myreports.php">Οι αναφορές μου</a></li>
+                <li><a href="newreport.php">Νέα αναφορά</a></li>
 
 <?php if ($login->isUserAdmin() == true) {
-    echo '<li><a href="dashboard.php">Dashboard</a></li>';
+    echo '<li><a href="dashboard.php">Διαχείριση</a></li>';
 }?>
 
             </ul>

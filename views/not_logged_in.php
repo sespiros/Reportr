@@ -18,7 +18,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="rss/index.php" title="RSS Feed"><span class="fontawesome-rss"></span></a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Είσοδος</a>
                     <ul class="dropdown-menu dropdown-login">
                         <form class="form" method="post" action="index.php" name="loginform">
                             <div class="form-group">
@@ -37,8 +37,8 @@
                             <label class="checkbox">
                                 <input type="checkbox" id="user_rememberme" name="user_rememberme" value="1"> Remember me </input> 
                             </label>
-                            <a class="btn" href="register.php">Register</a>
-                            <button type="submit" name="login" class="btn btn-primary pull-right" >Login</button>
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#registerModal">Εγγραφή</button>
+                            <button type="submit" name="login" class="btn btn-primary pull-right" >Είσοδος</button>
                         </form>
                     </ul>
                 </li>
@@ -47,5 +47,44 @@
         </div><!-- /.container-fluid -->
         </nav>
     </header>
+    <div class="modal fade" id="registerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Εγγραφή</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="index.php" name="registerform">
+                        <div class="form-group">
+                            <label for="user_name">Ψευδώνυμο: </label>
+                            <input class="form-control" id="user_name" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_email">E-mail: </label>
+                            <input class="form-control" id="user_email" type="email" name="user_email" required >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_password_new">Κωδικός: </label>
+                            <input class="form-control" id="user_password_new" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" >
+                            <p class="help-block">Αλφαριθμητικό με τουλάχιστον 6 χαρακτήρες.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user_password_repeat">Κωδικός (ξανά): </label>
+                            <input class="form-control" id="user_password_repeat" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" >
+                        </div>
+
+                        <button class="btn btn-primary" type="submit" name="register">Εγγραφή</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Άκυρο</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 <?php include('_footer.php'); ?>

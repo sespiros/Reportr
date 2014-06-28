@@ -60,7 +60,7 @@ class adminControls
                 $this->db_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
                 return true;
             } catch (PDOException $e) {
-                $this->errors[] = "Database error";
+                $this->errors[] = "Σφάλμα Βάσης!";
                 return false;
             }
         }
@@ -89,7 +89,7 @@ class adminControls
             //$report_comment->bindValue(':report_id',   $id,   PDO::PARAM_STR);
             //$report_comment->execute();
 
-            $this->messages[] = "Report " . $id . " marked as closed";
+            $this->messages[] = "Η αναφορά με αριθμό " . $id . " αρχειοθετήθηκε.";
             $this->submit_successful = true;
 
         }
@@ -179,9 +179,9 @@ class adminControls
 					//if (!$userStmt->execute()) {
 						//die('Error!');
 					//}
-					$this->messages[] = "User with id " . $user_id . " deleted successfully";
+					$this->messages[] = "Ο χρήστης με αριθμό " . $user_id . " διαγράφηκε επιτυχώς";
 				}else{
-					$this->errors[] = "Can't delete adminitrators";
+					$this->errors[] = "Δε είναι δυνατή η διαγραφή διαχειριστή!";
 				}
 			}
 		}
