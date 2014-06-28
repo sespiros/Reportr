@@ -22,7 +22,7 @@
 	}
 
 	$sql1 = "
-		SELECT web_reports.id, title, time_submitted, web_categories.name FROM `web_reports` INNER JOIN web_report_details ON web_reports.id=web_report_details.report_id INNER JOIN web_categories ON web_categories.id = web_report_details.category_id WHERE status='Open' ORDER BY category_id, time_submitted DESC LIMIT ". $max*($page-1) . "," . $max;
+		SELECT web_reports.id, title, time_submitted, web_categories.name, description, latitude, longitude FROM `web_reports` INNER JOIN web_report_details ON web_reports.id=web_report_details.report_id INNER JOIN web_categories ON web_categories.id = web_report_details.category_id WHERE status='Open' ORDER BY category_id, time_submitted DESC LIMIT ". $max*($page-1) . "," . $max;
 	$stmt = $pdo->prepare($sql1);
 ?>
 
