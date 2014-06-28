@@ -16,7 +16,7 @@ $(document).ready(function(){
 				$("#content-open").load('resources/openReports.php', {page: num});
 		});
 
-		$('.modal').on('shown.bs.modal', function (e) {
+		$('.report-modal').on('shown.bs.modal', function (e) {
 			var i = e.currentTarget.id;
 			if (map[i] == undefined){
 				// find coordinates
@@ -126,6 +126,26 @@ $(document).ready(function(){
 			});
 	});
 
+	
+	$(document).on("click", ".editUser", function() {
+	//$('.editUser').click(function() {
+		var username = $(this).parent().siblings("td.name").text();
+		var usermail = $(this).parent().siblings("td.email").text();
+
+		//handle the click of the nav edit for the same user
+		if (!username){
+			username = $(document).find('.user-img').text(); 
+		}
+		username = username.trim();
+
+		var post_data = { user_name: username, user_email: usermail, user_edit: 1 };
+		$.post( "edit.php", post_data )
+		  .done(function( data ) {
+			  var content = $( data )[35]; //mou exei spasei ta neura giati to .find('#edit-header') den douleuei
+			  $('#modalUserForm').empty().append(content);
+		  })
+	});
+		
 
 
 

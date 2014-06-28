@@ -24,7 +24,7 @@
                 <li class="dropdown">
                 <a href="#" class="navbar-brand dropdown-toggle user-img" data-toggle="dropdown"><?php echo $_SESSION['user_name'] . " " . $login->user_gravatar_image_tag?></a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="edit.php">Edit profile</a></li>
+                        <li role="presentation"><a class="editUser" data-toggle="modal" data-target="#edit-modal" role="menuitem" data-tabindex="-1" href="#">Edit profile</a></li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="index.php?logout">Logout</a></li>
                     </ul>
@@ -52,9 +52,9 @@
 <?php
 foreach($controls->categories as $name){
 ?>
-	<div class="btn-group btn-group-sm">
-	<button id="<?php echo $name['id']; ?>" type="button" class="category btn btn-default"><span class="editable"><?php echo $name['name']; ?></span></button>
-    <button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+	<div class="btn-group btn-group-sm btn-group-xs">
+		<button id="<?php echo $name['id']; ?>" type="button" class="category btn btn-default"><span class="editable"><?php echo $name['name']; ?></span></button>
+    	<button type="button" class="catRemove btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 	</div>
 <?php
 }
@@ -70,44 +70,58 @@ foreach($controls->categories as $name){
             </div>
         </div>
 		<div class ="row">
-                    <div class="col-md-12">
-			<h3>Χρήστες</h3>
-                        <div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Username</th>
-						<th>Διεύθυνση e-mail</th>
-						<th>Ημερομηνία εγγραφής</th>
-						<th>Τύπος χρήστη</th>
-						<th>Ενέργειες</th>
-					</tr>
-				</thead>
-				<tbody>
+			<div class="col-md-12">
+				<h3>Χρήστες</h3>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Username</th>
+								<th>Διεύθυνση e-mail</th>
+								<th>Ημερομηνία εγγραφής</th>
+								<th>Τύπος χρήστη</th>
+								<th>Ενέργειες</th>
+							</tr>
+						</thead>
+						<tbody>
 <?php
 foreach($controls->users as $user){
 ?>
-					<tr>
-						<td class="uid"><?php echo $user["user_id"]; ?></td>
-						<td><?php echo $user["user_name"]; ?></td>
-						<td><?php echo $user["user_email"]; ?></td>
-						<td><?php echo $user["user_registration_datetime"]; ?></td>
-						<td><?php if ($user["user_type"] == 1)echo "Διαχειριστής";else echo "Απλός χρήστης"; ?></td>
-						<td>
-							<a class="editUser btn btn-warning"  href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a class="delUser btn btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span></a>
-						</td>
-					</tr>
+								<tr>
+									<td class="uid"><?php echo $user["user_id"]; ?></td>
+									<td class="name"><?php echo $user["user_name"]; ?></td>
+									<td class="email"><?php echo $user["user_email"]; ?></td>
+									<td><?php echo $user["user_registration_datetime"]; ?></td>
+									<td><?php if ($user["user_type"] == 1)echo "Διαχειριστής";else echo "Απλός χρήστης"; ?></td>
+									<td>
+										<a class="editUser btn btn-warning" data-toggle="modal" data-target="#edit-modal" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+										<a class="delUser btn btn-danger" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+									</td>
+								</tr>
 <?php
 }
 ?>
-				</tbody>
-			</table>
-                    </div>
-                    </div>
+						</tbody>
+					</table>
+        		</div>
+        	</div>
 		</div>
     </div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 id="modalUserHeader" class="modal-title" id="myModalLabel">Επεξεργασία προφίλ</h4>
+		</div>
+		<div id="modalUserForm" class="modal-body">
+		</div>
+		</div> <!-- close modal-content -->
+	</div> <!-- close modal-dialog -->
+	</div> <!-- close modal -->
 
     <div class="page-footer page-footer-green">
         <p>footer</p>

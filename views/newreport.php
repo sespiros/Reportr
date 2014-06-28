@@ -26,9 +26,9 @@
                 <li class="dropdown">
                 <a href="#" class="navbar-brand dropdown-toggle user-img" data-toggle="dropdown"><?php echo $_SESSION['user_name'] . " " . $login->user_gravatar_image_tag?></a>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="edit.php">Edit profile</a></li>
+                        <li role="presentation"><a class="editUser" data-toggle="modal" data-target="#edit-modal" role="menuitem" data-tabindex="-1" href="#">Επεξεργασία προφίλ</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="index.php?logout">Logout</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="index.php?logout">Αποσύνδεση</a></li>
                     </ul>
                 </li>
             </ul>
@@ -87,6 +87,20 @@
             </div>
         </div>
     </div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 id="modalUserHeader" class="modal-title" id="myModalLabel">Επεξεργασία προφίλ</h4>
+		</div>
+		<div id="modalUserForm" class="modal-body">
+		</div>
+		</div> <!-- close modal-content -->
+	</div> <!-- close modal-dialog -->
+	</div> <!-- close modal -->
 
     <div class="page-footer page-footer-oceangreen">
         <p>footer</p>

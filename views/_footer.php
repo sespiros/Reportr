@@ -1,5 +1,18 @@
     <div id="map-canvas"></div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h4 id="modalUserHeader" class="modal-title" id="myModalLabel">Επεξεργασία προφίλ</h4>
+		</div>
+		<div id="modalUserForm" class="modal-body">
+		</div>
+		</div> <!-- close modal-content -->
+	</div> <!-- close modal-dialog -->
+	</div> <!-- close modal -->
 	<div id="stats">
 	</div>
 

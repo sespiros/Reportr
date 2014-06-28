@@ -94,11 +94,11 @@ class Login
             // user try to change his username
             if (isset($_POST["user_edit_submit_name"])) {
                 // function below uses use $_SESSION['user_id'] et $_SESSION['user_email']
-                $this->editUserName($_POST['user_name']);
+                $this->editUserName($_POST['user_name'], $_POST['user_name_old']);
             // user try to change his email
             } elseif (isset($_POST["user_edit_submit_email"])) {
                 // function below uses use $_SESSION['user_id'] et $_SESSION['user_email']
-                $this->editUserEmail($_POST['user_email']);
+                $this->editUserEmail($_POST['user_email'], $_POST['user_email_old']);
             // user try to change his password
             } elseif (isset($_POST["user_edit_submit_password"])) {
                 // function below uses $_SESSION['user_name'] and $_SESSION['user_id']
@@ -450,18 +450,19 @@ class Login
     /**
      * Edit the user's name, provided in the editing form
      */
-    public function editUserName($user_name)
-    {
+    public function editUserName($user_name, $user_name_old)
+    {		
         // prevent database flooding
         $user_name = substr(trim($user_name), 0, 64);
+        $user_name_old = substr(trim($user_name_old), 0, 64);
 
-        if (!empty($user_name) && $user_name == $_SESSION['user_name']) {
+        if (!empty($user_name) && $user_name == $user_name_old) {
             $this->errors[] = "Το παλιό και το νέο όνομα χρήστη είναι τα ίδια.";
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
         // TODO: maybe this pattern should also be implemented in Registration.php (or other way round)
         } elseif (empty($user_name) || !preg_match("/^(?=.{2,64}$)[a-zA-Z][a-zA-Z0-9]*(?: [a-zA-Z0-9]+)*$/", $user_name)) {
-            $this->errors[] = "Invalid Username. Must be azAZ09 and between 2-64 characters";
+            $this->errors[] = "Το ψευδώνυμο πρεέπει να είναι azAZ09 και μεταξύ 2-64 χαρακτήρων";
 
         } else {
             // check if new username already exists
@@ -471,13 +472,14 @@ class Login
                 $this->errors[] = "To όνομα χρήστη υπάρχει.";
             } else {
                 // write user's new data into database
-                $query_edit_user_name = $this->db_connection->prepare('UPDATE web_users SET user_name = :user_name WHERE user_id = :user_id');
+                $query_edit_user_name = $this->db_connection->prepare('UPDATE web_users SET user_name = :user_name WHERE user_name = :user_name_old');
                 $query_edit_user_name->bindValue(':user_name', $user_name, PDO::PARAM_STR);
-                $query_edit_user_name->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+                $query_edit_user_name->bindValue(':user_name_old', $user_name_old, PDO::PARAM_INT);
                 $query_edit_user_name->execute();
 
                 if ($query_edit_user_name->rowCount()) {
-                    $_SESSION['user_name'] = $user_name;
+					if(strcmp($user_name_old, $_SESSION['user_name']) == 0)
+						$_SESSION['user_name'] = $user_name;
                     $this->messages[] = "Το όνομα χρήστη άλλαξε με επιτυχία: " . $user_name;
                 } else {
                     $this->errors[] = "Η αλλαγή ονόματος χρήστη απέτυχε.";
@@ -489,16 +491,17 @@ class Login
     /**
      * Edit the user's email, provided in the editing form
      */
-    public function editUserEmail($user_email)
+    public function editUserEmail($user_email, $user_email_old)
     {
         // prevent database flooding
         $user_email = substr(trim($user_email), 0, 64);
+        $user_email_old = substr(trim($user_email_old), 0, 64);
 
-        if (!empty($user_email) && $user_email == $_SESSION["user_email"]) {
-            $this->errors[] = "New and old email are the same";
+        if (!empty($user_email) && $user_email == $user_email_old) {
+            $this->errors[] = "Η νέα και η παλιά διεύθυνση email είναι οι ίδιες";
         // user mail cannot be empty and must be in email format
         } elseif (empty($user_email) || !filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = "Invalid email format";
+            $this->errors[] = "Η διεύθυνση email που δόθηκε δεν είναι έγκυρη";
 
         } else if ($this->databaseConnection()) {
             // check if new email already exists
@@ -510,19 +513,20 @@ class Login
 
             // if this email exists
             if (isset($result_row->user_id)) {
-                $this->errors[] = "Email address already exists";
+                $this->errors[] = "Υπάρχει ήδη χρήστης με αυτή την διεύθυνση email";
             } else {
                 // write users new data into database
-                $query_edit_user_email = $this->db_connection->prepare('UPDATE web_users SET user_email = :user_email WHERE user_id = :user_id');
+                $query_edit_user_email = $this->db_connection->prepare('UPDATE web_users SET user_email = :user_email WHERE user_email = :user_email_old');
                 $query_edit_user_email->bindValue(':user_email', $user_email, PDO::PARAM_STR);
-                $query_edit_user_email->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+                $query_edit_user_email->bindValue(':user_email_old', $user_email_old, PDO::PARAM_INT);
                 $query_edit_user_email->execute();
 
                 if ($query_edit_user_email->rowCount()) {
-                    $_SESSION['user_email'] = $user_email;
-                    $this->messages[] = "Email changed successfully" . $user_email;
+					if(strcmp($user_email_old, $_SESSION['user_email']) == 0)
+						$_SESSION['user_email'] = $user_email;
+                    $this->messages[] = "Η διεύθυνση email άλλαξε επιτυχώς!" . $user_email;
                 } else {
-                    $this->errors[] = "Email change failed";
+                    $this->errors[] = "Η αλλαγή διεύθυνσης email απέτυχε.";
                 }
             }
         }
@@ -535,13 +539,13 @@ class Login
     public function editUserPassword($user_password_old, $user_password_new, $user_password_repeat)
     {
         if (empty($user_password_new) || empty($user_password_repeat) || empty($user_password_old)) {
-            $this->errors[] = "Password fields cannot be empty";
+            $this->errors[] = "Τα πεδία αλλαγής password δεν μπορούν να είναι άδεια";
         // is the repeat password identical to password
         } elseif ($user_password_new !== $user_password_repeat) {
-            $this->errors[] = "Repeat password is not the same";
+            $this->errors[] = "Επαναλάβετε σωστά το password.";
         // password need to have a minimum length of 6 characters
         } elseif (strlen($user_password_new) < 6) {
-            $this->errors[] = "Password must be at least 6 characters long";
+            $this->errors[] = "To password πρέπει να είναι μεγαλύτερο απο 6 χαρακτήρες";
 
         // all the above tests are ok
         } else {
@@ -572,15 +576,15 @@ class Login
 
                     // check if exactly one row was successfully changed:
                     if ($query_update->rowCount()) {
-                        $this->messages[] = "Password changed succesfully";
+                        $this->messages[] = "Η αλλαγή password έγινε επιτυχώς!";
                     } else {
-                        $this->errors[] = "Password change failed";
+                        $this->errors[] = "Η αλλαγή password απέτυχε";
                     }
                 } else {
-                    $this->errors[] = "Old Password is wrong";
+                    $this->errors[] = "Το παλιό password είναι εσφαλμένο";
                 }
             } else {
-                $this->errors[] = "This user does not exist";
+                $this->errors[] = "Ρε φίλε, τι το βρήκαμε εδω πέρα!";
             }
         }
     }

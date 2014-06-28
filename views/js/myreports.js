@@ -28,3 +28,15 @@
         });
     });
 })();
+
+	$(document).on("click", ".editUser", function() {
+		username = $(document).find('.user-img').text(); 
+		username = username.trim();
+
+		var post_data = { user_name: username, user_edit: 1 };
+		$.post( "edit.php", post_data )
+		  .done(function( data ) {
+			  var content = $( data )[35]; //mou exei spasei ta neura giati to .find('#edit-header') den douleuei
+			  $('#modalUserForm').empty().append(content);
+		  })
+	});

@@ -34,13 +34,13 @@
 + (DONE) Larger map
 
 ==== MY REPORTS
-+ (    ) Better layout / compact list
++ (DONE) Better layout / compact list
 + (    ) Most recent first
 + (DONE) Show images and comment of the report
 
 ==== DASHBOARD
 + (DONE) User management (Delete)
-+ (    ) User management (Edit)
++ (DONE) User management (Edit)
 + (DONE) Category management ( Add/ Delete/ Edit)
 + (    ) ti simvainei otan svistei mia katigoria pou yparxoun reports? na svinoume ola ta reports?
          giati diaforetika fantazomai tha epireazontai diafora queries se diafora shmeia
@@ -49,8 +49,8 @@
 + (DONE) Archive list
 
 ==== VARIOUS
-+ (    ) Better edit form
-+ (    ) Better registration form
++ (DONE) Better edit form
++ (DONE) Better registration form
 + (    ) My reports page FONT BUG. After map load html headings in greek change font?!
 + (PROGRESS) I teleios afairesi tou footer einai kapos asximi opote as kanoume kati edw
 + (    ) Pio omorfo dashboard

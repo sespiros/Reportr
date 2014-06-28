@@ -13,12 +13,13 @@
 		$page = $_POST['page'];
 	else{
 		$page = 1;
-		$sql = "SELECT COUNT(*) FROM web_reports WHERE status='Open'";
+		$sql = "SELECT COUNT(*) FROM web_reports WHERE status='Closed'";
 		$all = $pdo->prepare($sql);
-		if($all->execute()) {
-                    $allRes = $all->fetch();
-                    $count = $allRes[0];
-                }
+		//den sou xei pei i mama sou na min peirazeis ta pragmata apo ta alla paidakia?
+		if($all->execute()){
+			$allRes = $all->fetch();
+			$count = $allRes[0];
+		}
 	}
 
 	$sql1 = "
@@ -58,7 +59,7 @@
 			<td><a data-toggle="modal" data-target="#<?php echo $index; ?>" href="#">Προβολή</a></td>
 		</tr>
 		<!-- Modal -->
-		<div class="modal fade" id="<?php echo $index; ?>" tabindex="-1" role="dialog" aria-labelledby="<?php echo $row["id"]; ?>label" aria-hidden="true">
+		<div class="modal fade report-modal" id="<?php echo $index; ?>" tabindex="-1" role="dialog" aria-labelledby="<?php echo $row["id"]; ?>label" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header">

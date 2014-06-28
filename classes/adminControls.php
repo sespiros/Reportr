@@ -43,7 +43,7 @@ class adminControls
 		if (isset($_POST['del_user_id'])) {
 			$this->deleteUser($_POST['del_user_id']);
 		}
-
+		
     }
 
     /**
