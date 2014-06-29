@@ -76,7 +76,6 @@ $(document).ready(function(){
 		var id = modalform.find('span[data-id]').data('id');
 		var comment = modalform.find('textarea').val();
 		var post_data = { report_id: id, comment: comment, markClosed: 1 };
-		console.log("before posting");
 
 		$('<form method="post" action="dashboard.php" role="form">' +
 			'<input name="report_id" value="' + id + '">' +

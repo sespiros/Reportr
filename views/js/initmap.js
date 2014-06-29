@@ -2,6 +2,7 @@
 /*global $, jQuery, alert, google*/
 var map;
 var markers = [];
+var markersobj = [];
 var oldMarkers = [];
 var infowindow;
 var markerBounds;
@@ -49,6 +50,8 @@ function addMarker(p) {
 		position: latlng,
 		map: map
 	});
+    
+    markersobj.push(marker);
 
 	if (statusMsg === "Closed") {
 		marker.setIcon(greenIcon);
@@ -93,12 +96,54 @@ function markerChanged(p) {
     for (i = 0; i < oldMarkers.length; i += 1) {
         if (oldMarkers[i].getAttribute('id') === p.getAttribute('id')) {
             if (oldMarkers[i].getAttribute('status') !== p.getAttribute('status')) {
-                return i;
+                return true;
             }
         }
     }
 
-    return 0;
+    return false;
+}
+
+function changeColorOnClose(p) {
+    "use strict";
+    var lat = p.getAttribute("latitude"),
+	    lon = p.getAttribute("longitude"),
+	    latlng = new google.maps.LatLng(lat, lon),
+        tlatlng,
+        i;
+    
+    for (i = 0; i < markersobj.length; i += 1) {
+        tlatlng = markersobj[i].position;
+        if (tlatlng.equals(latlng)) {
+            markersobj[i].setIcon(greenIcon);
+        }
+    }
+}
+
+function clearMarkers() {
+    "use strict";
+    var lon, lat, tlatlng, latlng, i, j, old;
+    //krataw epipleon ena markersobj oste na menoun ta markers
+    //objects kai na ta ta kanw .setMap(null)osa pleon den einai sta last 20
+    //an kai einai psilokaki ylopoihsh to markersobj einai active mono mexri
+    //to epomeno refresh opote isos na min einai provlima
+    //mou thymizei triti lykeiou auti i asximia(ginan 2 oi asximies)
+    for (i = 0; i < markersobj.length; i += 1) {
+        old = 1;
+        tlatlng = markersobj[i].position;
+        for(j = 0; j < markers.length; j += 1) {
+            lon = markers[j].getAttribute("longitude");
+	        lat = markers[j].getAttribute("latitude");
+	        latlng = new google.maps.LatLng(lat, lon);
+            
+            if (tlatlng.equals(latlng)) {
+                old = 0;
+            }            
+        }
+        if (old == 1) {
+            markersobj[i].setMap(null);   
+        }
+    }
 }
 
 function updateMarkers() {
@@ -109,23 +154,23 @@ function updateMarkers() {
 	for (i = 0; i < markers.length; i += 1) {
 		p = markers[i];
         statusMsg = p.getAttribute("status");
-		//TODO check the marker status and change colour dynamically
+		//TODO check the marker status and change colour dynamically        
 		if (!markerExists(p)) {
 			marker = addMarker(p);
 			marker.setAnimation(google.maps.Animation.DROP);
 			map.fitBounds(markerBounds);
 		} else {
-            markers[i].setMap(null);
             //if exists replace color
-            ret = markerChanged(p);
-            if (ret) {
+            if (markerChanged(p)) {
                 console.log('changed');
-                marker = addMarker(p);
-                marker.setIcon(greenIcon);
-                map.fitBounds(markerBounds);
+                changeColorOnClose(p);
             }
         }
 	}
+            
+    //clear old markers
+    clearMarkers();
+    
 	oldMarkers = markers;
 	setTimeout(updateMarkers, 5000);
 }

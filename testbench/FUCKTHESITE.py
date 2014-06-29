@@ -31,13 +31,13 @@ def main():
 
     mc.generateDatabase(data)
 
-    for x in range(0, 20):
+    for x in range(0, 5):
       r = os.urandom(16).encode('hex')
       title="Report#"+str(x)+" "+str(r)
       description = mc.generateString()
 
-
-      y, x = uniform(-180,180), uniform(-90, 90)
+      #europe only because americans are fags
+      y, x = uniform(-17,43), uniform(28, 55)
 
       print (title)
 
