@@ -133,6 +133,7 @@ foreach($controls->users as $user){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="views/js/bootstrap.min.js"></script>
+    <script src="views/js/lightbox.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="views/js/jquery.bootpag.min.js"></script>
     <script src="views/js/dashboard.js"></script>

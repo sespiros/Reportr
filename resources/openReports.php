@@ -51,7 +51,7 @@
                 $imgStmt->bindParam(':rid', $row['id']);
                 if ($imgStmt->execute()) {
                     $images = $imgStmt->fetchAll();
-    			}
+                }
     ?>
     		<tr>
     			<td><?php echo $row["id"]; ?></td>
@@ -79,7 +79,6 @@
     				<br>
     				<p>
     				<?php echo $row['description']; ?>
-    				<span class="label label-info">Ανοιχτή</span>
     				</p>
     				<div class="image-grid clearfix">
     					<?php
@@ -87,9 +86,10 @@
     					foreach($images as $reportImage) {
     					$imgId++;
     					?>
-    					<a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
+    					<a href="<?php echo $reportImage['path']; ?>" data-lightbox="report-<?php echo $row['id']; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
     					<?php } ?>
     				</div>
+    				<span class="label label-warning">Ανοιχτή</span>
     				<br>
     <!--
     				<form id="test" class="modalform" method="post" action="dashboard.php" role="form">

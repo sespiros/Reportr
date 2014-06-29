@@ -133,7 +133,7 @@ input[type=file] {
 
 .image-grid img {
     max-width: 25%;
-    border: 5px solid #fff;
+    padding: 5px;
     float: left;
 }
 
@@ -142,6 +142,10 @@ input[type=file] {
 /* -- Dashboard -- */
 #categories .btn-group {
     margin: 5px 2px;
+}
+
+.modalform {
+    margin-top: 20px;
 }
 
 /*overwrite bootstrap styles*/
