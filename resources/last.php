@@ -1,5 +1,6 @@
 <?php
 require_once('../config/config.php');
+require_once('../config/human_dates.php');
 try {
     $pdo = new PDO('mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8', DB_USER, DB_PASS);
 } catch (PDOException $e) {
@@ -21,6 +22,7 @@ if ($stmt->execute()) {
             '" status="'.$row['status'].'" latitude="'.$row['latitude'].
             '" longitude="'.$row['longitude'].'" category="'.$row['name'].
             '" pubDate="'.date('r', strtotime($row['time_submitted'])).
+            '" timeDiff="'.get_date_diff(strtotime($row['time_submitted']), time()).
             '" id="'.$row['report_id'].'"></marker>';
     }
     $xml .='</last20>';

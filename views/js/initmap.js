@@ -68,6 +68,7 @@ function addMarker(p) {
 	var category = p.getAttribute("category");
 	var lat = p.getAttribute("latitude");
 	var lon = p.getAttribute("longitude");
+	var diff = p.getAttribute("timeDiff");
 	var latlng = new google.maps.LatLng(lat, lon);
 
 	markerBounds.extend(latlng);
@@ -87,6 +88,7 @@ function addMarker(p) {
 		'<div>'+
 		'<p>' + description +'</p>'+
 		'</div>'+
+                '<small>πριν ' + diff + '</small>'+
 		'</div>';
 
 	google.maps.event.addListener(marker, 'click', (function(contentString) {

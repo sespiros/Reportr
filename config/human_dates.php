@@ -35,11 +35,17 @@ function get_date_diff( $time1, $time2, $precision = 2 ) {
     $intervals = array( 'year', 'month', 'day', 'hour', 'minute', 'second' );
     $translate = array( 
             'year' => 'χρόνος', 
-            'month' => 'μήνες', 
-            'day' => 'ημέρες', 
-            'hour' => 'ώρες', 
-            'minute' => 'λεπτά', 
-            'second' => 'δευτερόλεπτα', 
+            'years' => 'χρόνια', 
+            'month' => 'μήνας', 
+            'months' => 'μήνες', 
+            'day' => 'ημέρα', 
+            'days' => 'ημέρες', 
+            'hour' => 'ώρα', 
+            'hours' => 'ώρες', 
+            'minute' => 'λεπτό', 
+            'minutes' => 'λεπτά', 
+            'second' => 'δευτερόλεπτο', 
+            'seconds' => 'δευτερόλεπτα', 
     );
     $diffs = array();
 
@@ -70,9 +76,9 @@ function get_date_diff( $time1, $time2, $precision = 2 ) {
         }
         // Add value and interval if value is bigger than 0
         if( $value > 0 ) {
-            //if( $value != 1 ){
-                //$interval .= "s";
-            //}
+            if( $value != 1 ){
+                $interval .= "s";
+            }
             // Add value and interval to times array
             $times[] = $value . " " . $translate[$interval];
             $count++;
