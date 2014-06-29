@@ -83,6 +83,9 @@ class Registration
         $user_name  = trim($user_name);
         $user_email = trim($user_email);
 
+		$user_fullname = $_POST['user_fullname'];
+		$user_phone = preg_replace("/[^0-9,.]/", "", $_POST['user_phone']);
+
         // check provided data validity
         // TODO: check for "return true" case early, so put this first
         if (empty($user_name)) {
@@ -93,10 +96,12 @@ class Registration
             $this->errors[] = "Repeat password is not the same";
         } elseif (strlen($user_password) < 6) {
             $this->errors[] = "Password is too short";
-        } elseif (strlen($user_name) > 64 || strlen($user_name) < 2) {
+        } elseif (strlen($user_name) > 24 || strlen($user_name) < 2) {
             $this->errors[] = "Username bad length";
-        } elseif (!preg_match('/^[a-z\d]{2,64}$/i', $user_name)) {
+        } elseif (!preg_match('/^[a-z\d]{6,24}$/i', $user_name)) {
             $this->errors[] = "Invalid Username. Username must be between 6-24 characters a-z";
+        } elseif (!preg_match('/^[\d]{8,10}$/i', $user_phone)) {
+            $this->errors[] = "Invalid phone provided. Only digits 8-10 characters long";
         } elseif (empty($user_email)) {
             $this->errors[] = "Email field empty";
         } elseif (strlen($user_email) > 64) {
@@ -133,11 +138,13 @@ class Registration
                 $user_activation_hash = sha1(uniqid(mt_rand(), true));
 
                 // write new users data into database
-                $query_new_user_insert = $this->db_connection->prepare('INSERT INTO web_users (user_name, user_password_hash, user_email, user_registration_ip, user_registration_datetime) VALUES(:user_name, :user_password_hash, :user_email, :user_registration_ip, now())');
+                $query_new_user_insert = $this->db_connection->prepare('INSERT INTO web_users (user_name, user_password_hash, user_email, user_registration_ip, user_registration_datetime, user_fullname, user_phone) VALUES(:user_name, :user_password_hash, :user_email, :user_registration_ip, now(), :user_fullname, :user_phone)');
                 $query_new_user_insert->bindValue(':user_name', $user_name, PDO::PARAM_STR);
                 $query_new_user_insert->bindValue(':user_password_hash', $user_password_hash, PDO::PARAM_STR);
                 $query_new_user_insert->bindValue(':user_email', $user_email, PDO::PARAM_STR);
                 $query_new_user_insert->bindValue(':user_registration_ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+                $query_new_user_insert->bindValue(':user_fullname', $user_fullname, PDO::PARAM_STR);
+                $query_new_user_insert->bindValue(':user_phone', $user_phone, PDO::PARAM_STR);
                 $query_new_user_insert->execute();
 
 

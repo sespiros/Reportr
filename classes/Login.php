@@ -93,15 +93,18 @@ class Login
             // checking for form submit from editing screen
             // user try to change his username
             if (isset($_POST["user_edit_submit_name"])) {
-                // function below uses use $_SESSION['user_id'] et $_SESSION['user_email']
                 $this->editUserName($_POST['user_name'], $_POST['user_name_old']);
+            // user try to change his fullname
+            } elseif (isset($_POST["user_edit_submit_fullname"])) {
+                $this->editUserFullname($_POST['user_fullname'], $_POST['user_fullname_old'], $_POST['user_name']);
+            // user try to change his phone
+            } elseif (isset($_POST["user_edit_submit_phone"])) {
+                $this->editUserPhone($_POST['user_phone'], $_POST['user_phone_old'], $_POST['user_name']);
             // user try to change his email
             } elseif (isset($_POST["user_edit_submit_email"])) {
-                // function below uses use $_SESSION['user_id'] et $_SESSION['user_email']
                 $this->editUserEmail($_POST['user_email'], $_POST['user_email_old']);
             // user try to change his password
             } elseif (isset($_POST["user_edit_submit_password"])) {
-                // function below uses $_SESSION['user_name'] and $_SESSION['user_id']
                 $this->editUserPassword($_POST['user_password_old'], $_POST['user_password_new'], $_POST['user_password_repeat']);
             }
 
@@ -143,7 +146,7 @@ class Login
                 $this->db_connection = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
                 return true;
             } catch (PDOException $e) {
-                $this->errors[] = "DATABASE ERROR: " . $e->getMessage();
+                $this->errors[] = "Σφάλμα βάσης: " . $e->getMessage();
             }
         }
         // default return
@@ -208,7 +211,7 @@ class Login
                 // cookie looks good, try to select corresponding user
                 if ($this->databaseConnection()) {
                     // get real token from database (and all other data)
-                    $sth = $this->db_connection->prepare("SELECT user_id, user_name, user_email, user_type FROM web_users WHERE user_id = :user_id
+                    $sth = $this->db_connection->prepare("SELECT user_id, user_name, user_email, user_type, user_fullname, user_phone FROM web_users WHERE user_id = :user_id
                                                       AND user_rememberme_token = :user_rememberme_token AND user_rememberme_token IS NOT NULL");
                     $sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
                     $sth->bindValue(':user_rememberme_token', $token, PDO::PARAM_STR);
@@ -222,6 +225,8 @@ class Login
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_type'] = $result_row->user_type;
+                        $_SESSION['user_fullname'] = $result_row->user_fullname;
+                        $_SESSION['user_phone'] = $result_row->user_phone;
                         $_SESSION['user_logged_in'] = 1;
 
                         // declare user id, set the login status to true
@@ -244,7 +249,7 @@ class Login
             }
             // A cookie has been used but is not valid... we delete it
             $this->deleteRememberMeCookie();
-            $this->errors[] = "Invalid cookie";
+            $this->errors[] = "Εσφαλμένο cookie";
         }
         return false;
     }
@@ -316,6 +321,8 @@ class Login
                 $_SESSION['user_name'] = $result_row->user_name;
                 $_SESSION['user_email'] = $result_row->user_email;
                 $_SESSION['user_type'] = $result_row->user_type;
+                $_SESSION['user_fullname'] = $result_row->user_fullname;
+                $_SESSION['user_phone'] = $result_row->user_phone;
                 $_SESSION['user_logged_in'] = 1;
 
                 // declare user id, set the login status to true
@@ -457,7 +464,7 @@ class Login
         $user_name_old = substr(trim($user_name_old), 0, 64);
 
         if (!empty($user_name) && $user_name == $user_name_old) {
-            $this->errors[] = "Το παλιό και το νέο όνομα χρήστη είναι τα ίδια.";
+            $this->errors[] = "Το παλιό και το νέο ψευδώνυμο είναι τα ίδια.";
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
         // TODO: maybe this pattern should also be implemented in Registration.php (or other way round)
@@ -485,6 +492,64 @@ class Login
                     $this->errors[] = "Η αλλαγή ονόματος χρήστη απέτυχε.";
                 }
             }
+        }
+    }
+
+    /**
+     * Edit the user's name, provided in the editing form
+     */
+    public function editUserFullname($user_fullname, $user_fullname_old, $user_name)
+    {		
+        // prevent database flooding
+        $user_fullname = substr(trim($user_fullname), 0, 40);
+        $user_name = substr(trim($user_name), 0, 64);
+
+        if (!empty($user_fullname) && $user_fullname == $user_fullname_old) {
+            $this->errors[] = "Το παλιό και το νέο ονοματεπώνυμο χρήστη είναι τα ίδια.";
+        } else {
+        	if ($this->databaseConnection()) {
+                // write user's new data into database
+                $query_edit_user_name = $this->db_connection->prepare('UPDATE web_users SET user_fullname = :user_fullname WHERE user_name = :user_name');
+                $query_edit_user_name->bindValue(':user_fullname', $user_fullname, PDO::PARAM_INT);
+                $query_edit_user_name->bindValue(':user_name', $user_name, PDO::PARAM_STR);
+                $query_edit_user_name->execute();
+
+                if ($query_edit_user_name->rowCount()) {
+						$_SESSION['user_fullname'] = $user_fullname;
+                    $this->messages[] = "Το ονοματεπώνυμο χρήστη άλλαξε με επιτυχία: " . $user_fullname;
+                } else {
+                    $this->errors[] = "Η αλλαγή ονόματος χρήστη απέτυχε.";
+                }
+			}
+        }
+    }
+
+    /**
+     * Edit the user's phone, provided in the editing form
+     */
+    public function editUserPhone($user_phone, $user_phone_old, $user_name)
+    {		
+        // prevent database flooding
+        $user_phone = substr(trim($user_phone), 0, 10);
+        $user_name = substr(trim($user_name), 0, 64);
+
+        if (!empty($user_phone) && $user_phone == $user_phone_old) {
+            $this->errors[] = "Το παλιό και το νέο τηλέφωνο είναι τα ίδια.";
+        } else {
+        	if ($this->databaseConnection()) {
+                // write user's new data into database
+                $query_edit_user_phone = $this->db_connection->prepare('UPDATE web_users SET user_phone = :user_phone WHERE user_name = :user_name');
+                $query_edit_user_phone->bindValue(':user_phone', $user_phone, PDO::PARAM_INT);
+                $query_edit_user_phone->bindValue(':user_name', $user_name, PDO::PARAM_STR);
+                $query_edit_user_phone->execute();
+
+                if ($query_edit_user_phone->rowCount()) {
+						$_SESSION['user_phone'] = $user_phone;
+                    $this->messages[] = "Το τηλέφωνο χρήστη άλλαξε με επιτυχία: " . $user_phone;
+                } else {
+                    $this->errors[] = "Η αλλαγή τηλεφώνου χρήστη απέτυχε.";
+                }
+			}
         }
     }
 

@@ -75,7 +75,18 @@
                         <div class="form-group">
                             <label for="user_password_repeat">Κωδικός (ξανά): </label>
                             <input class="form-control" id="user_password_repeat" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" >
+						</div>
+
+						<div class="form-group">
+                            <label for="user_fullname">Ονοματεπώνυμο: </label>
+                            <input class="form-control" id="user_fullname" type="text" name="user_fullname" autocomplete="off" placeholder="Optional">
                         </div>
+
+                        <div class="form-group">
+                            <label for="user_phone">Τηλέφωνο: </label>
+                            <input class="form-control" id="user_phone" type="text" name="user_phone" pattern="\d*" autocomplete="off" placeholder="Optional">
+                        </div>
+
 
                         <button class="btn btn-primary" type="submit" name="register">Εγγραφή</button>
                     </form>
