@@ -97,7 +97,7 @@
                             foreach($images as $reportImage) {
                             $imgId++;
                             ?>
-                            <a href="<?php echo $reportImage['path']; ?>" data-lightbox="image-<?php echo $imgId; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
+                            <a href="<?php echo $reportImage['path']; ?>" data-lightbox="report-<?php echo $row['id']; ?>"><img src="<?php echo $reportImage['path'];?>" alt=""></a>
                             <?php } ?>
                         </div>
 <?php

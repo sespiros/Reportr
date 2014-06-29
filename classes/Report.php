@@ -107,7 +107,7 @@ class Report
     }
 
     public function imagecheck() {
-        $allowedExts = array("jpeg", "jpg", "png");
+        $allowedExts = array("jpeg", "jpg", "png", "gif");
 
         if(!empty($_FILES["images"]['name'][0])) {
             $this->images = reArrayFiles($_FILES["images"]);
@@ -120,6 +120,7 @@ class Report
                         || ($image["type"] == "image/jpg")
                         || ($image["type"] == "image/pjpeg")
                         || ($image["type"] == "image/x-png")
+                        || ($image["type"] == "image/gif")
                         || ($image["type"] == "image/png"))
                         && ($image["size"] < 5000000)
                         && in_array($extension, $allowedExts)
