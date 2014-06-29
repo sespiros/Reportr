@@ -433,7 +433,7 @@ class Login
         session_destroy();
 
         $this->user_is_logged_in = false;
-        $this->messages[] = "You have been logged out";
+        $this->messages[] = "Έχετε αποσυνδεθεί";
     }
 
     /**
