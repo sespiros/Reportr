@@ -82,6 +82,8 @@ foreach($controls->categories as $name){
 								<th>Username</th>
 								<th>Διεύθυνση e-mail</th>
 								<th>Ημερομηνία εγγραφής</th>
+                                <th class="hidden">Ονοματεπώνυμο</th>
+                                <th class="hidden">Τηλέφωνο</th>
 								<th>Τύπος χρήστη</th>
 								<th>Ενέργειες</th>
 							</tr>
@@ -95,6 +97,10 @@ foreach($controls->users as $user){
 									<td class="name"><?php echo $user["user_name"]; ?></td>
 									<td class="email"><?php echo $user["user_email"]; ?></td>
 									<td><?php echo $user["user_registration_datetime"]; ?></td>
+                                    
+                                    <td class="fname hidden"><?php echo $user["user_fullname"]; ?></td>
+                                    <td class="phone hidden"><?php echo $user["user_phone"]; ?></td>
+                                    
 									<td><?php if ($user["user_type"] == 1)echo "Διαχειριστής";else echo "Απλός χρήστης"; ?></td>
 									<td>
 										<a class="editUser btn btn-warning" data-toggle="modal" data-target="#edit-modal" href="#"><span class="glyphicon glyphicon-pencil"></span></a>

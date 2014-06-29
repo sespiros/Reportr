@@ -131,6 +131,8 @@ $(document).ready(function(){
 	//$('.editUser').click(function() {
 		var username = $(this).parent().siblings("td.name").text();
 		var usermail = $(this).parent().siblings("td.email").text();
+		var userfullname = $(this).parent().siblings("td.fname").text();
+		var userphone = $(this).parent().siblings("td.phone").text();
 
 		//handle the click of the nav edit for the same user
 		if (!username){
@@ -138,7 +140,7 @@ $(document).ready(function(){
 		}
 		username = username.trim();
 
-		var post_data = { user_name: username, user_email: usermail, user_edit: 1 };
+		var post_data = { user_name: username, user_email: usermail, user_edit: 1, user_fullname: userfullname, user_phone: userphone };
 		$.post( "edit.php", post_data )
 		  .done(function( data ) {
 			  var content = $( data )[35]; //mou exei spasei ta neura giati to .find('#edit-header') den douleuei

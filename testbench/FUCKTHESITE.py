@@ -2,6 +2,7 @@ import requests
 import sys
 from pymarkovchain import MarkovChain
 from random import uniform
+import os
 #pip install PyMarkovChain
 
 EMAIL = 'sespiros'
@@ -30,8 +31,9 @@ def main():
 
     mc.generateDatabase(data)
 
-    for x in range(0, 4):
-      title=mc.generateString()
+    for x in range(0, 20):
+      r = os.urandom(16).encode('hex')
+      title="Report#"+str(x)+" "+str(r)
       description = mc.generateString()
 
 

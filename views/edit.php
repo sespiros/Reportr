@@ -13,6 +13,8 @@ if (isset($_POST["user_edit"])) {
 	if(strcmp($post_user, $user_name) !==0 && $login->isUserAdmin()){
 		$user_name = $_POST["user_name"];
 		$user_email = $_POST["user_email"];
+        $user_fullname = $_POST["user_fullname"];
+        $user_phone = $_POST["user_phone"];
 		$priv = "admin";
 	}
 }
