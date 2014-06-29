@@ -23,6 +23,9 @@
     if ($stmt->execute()) {
         $res = $stmt->fetch();
         $averageTime = $res['average_time'];
+        if (empty($averageTime)) {
+            $averageTime = 'NaN';
+        }
     }
 
 ?>
@@ -33,25 +36,25 @@
 		<div class="col-xs-6 col-sm-3 stat">
 			<div class="content">
 				<h1><span class="fontawesome-folder-close-alt"></span> <?php echo $totalReports; ?> </h1>
-				<h3>Συνολικές Αναφορές</h3>
+				<h4>Συνολικές Αναφορές</h4>
 			</div>
 		</div>
 		<div class="col-xs-6 col-sm-3 stat">
 		<div class="content">
 			<h1><span class="fontawesome-folder-open-alt"></span> <?php echo $openReports; ?> </h1>
-			<h3>Ανοιχτές Αναφορές</h3>
+			<h4>Ανοιχτές Αναφορές</h4>
 		</div>
 		</div>
 		<div class="col-xs-6 col-sm-3 stat">
 		<div class="content">
 			<h1><span class="fontawesome-ok"></span> <?php echo ($totalReports - $openReports); ?> </h1>
-			<h3>Αναφορές Αρχείου</h3>
+			<h4>Αναφορές Αρχείου</h4>
 		</div>
 		</div>
 		<div class="col-xs-6 col-sm-3 stat">
 		<div class="content">
 			<h1><span class="fontawesome-bar-chart"></span> <?php echo $averageTime; ?> <small>λεπτά</small> </h1>
-			<h3>Μέσος χρόνος επίλυσης αναφορών</h3>
+			<h4>Μέσος χρόνος επίλυσης αναφορών</h4>
 		</div>
 			
 		</div>

@@ -67,6 +67,12 @@ header p
     height: 250px;
 }
 
+@media (max-width: 768px) {
+    .stat {
+        height: 200px;
+    }
+}
+
 .stat:before {
     content: '';
     height: 100%;

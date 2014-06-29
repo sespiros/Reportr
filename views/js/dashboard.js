@@ -40,6 +40,10 @@ $(document).ready(function(){
 				map[i].setCenter(center);
 			}
 		});
+
+                if ($(this).find('tbody tr').length === 1) {
+                    $(this).find('tbody tr.warning').removeClass('hidden');
+                }
 	});
 
 	$('#content-closed').load('resources/closedReports.php', function() {
@@ -53,6 +57,10 @@ $(document).ready(function(){
 		}).on("page", function(event, num){
 				$("#content-closed").load('resources/closedReports.php', {page: num});
 		});
+
+                if ($(this).find('tbody tr').length === 1) {
+                    $(this).find('tbody tr.warning').removeClass('hidden');
+                }
 	});
 
 	$(document).on("click", ".closebtn", function() {
@@ -147,8 +155,4 @@ $(document).ready(function(){
 			  $('#modalUserForm').empty().append(content);
 		  })
 	});
-
-
-
-
 });

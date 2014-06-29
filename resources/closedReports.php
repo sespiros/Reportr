@@ -63,6 +63,9 @@
     		}
         }
     ?>
+    <tr class="hidden warning">
+        <td colspan="5" class="text-center">Δεν υπάρχουν αναφορές! :(</td>
+    </tr>
         </tbody>
     </table>
 </div>
