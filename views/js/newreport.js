@@ -84,7 +84,7 @@ $("#ajaxform").submit(function (e) {
             content[0].style.opacity = 0;
 
             //Make sure the initial state is applied.
-            window.getComputedStyle(content[0]).opacity();
+            window.getComputedStyle(content[0]).opacity;
 
             content[0].style.opacity = 1;
 
