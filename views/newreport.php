@@ -55,6 +55,7 @@
 
                             $stmt = $pdo->prepare("SELECT * FROM web_categories");
                             if ($stmt->execute()) {
+								$stmt->fetch(); //do not show the first uncategorized category
                                 while ($row = $stmt->fetch()) {
                         ?>
                             <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>

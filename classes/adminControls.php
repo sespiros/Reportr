@@ -156,6 +156,14 @@ class adminControls
 	{
 		if ($this->databaseConnection()) {
 			$pdo = $this->db_connection;
+
+			//reports with this category must be set as Uncategorised
+			$repStmt = $pdo->prepare('UPDATE web_report_details SET category_id=1 WHERE category_id=:cat_id');
+			$repStmt->bindParam('cat_id', $category_id);
+			if (!$repStmt->execute()) {
+				die('Error!');
+			}
+
 			$catStmt = $pdo->prepare('DELETE FROM web_categories WHERE id=:cat_id');
 			$catStmt->bindParam('cat_id', $category_id);
 			if (!$catStmt->execute()) {
@@ -191,7 +199,8 @@ class adminControls
 	{
 		if ($this->databaseConnection()) {
 			$pdo = $this->db_connection;
-			$catStmt = $pdo->prepare('SELECT * FROM web_categories');
+			//fetch the first 100000000 categories excluded the uncategorized category
+			$catStmt = $pdo->prepare('SELECT * FROM web_categories LIMIT 1,1000000');
 			if ($catStmt->execute()) {
 				$this->categories = $catStmt->fetchAll();
 			}
