@@ -37,8 +37,7 @@ CREATE TABLE IF NOT EXISTS `web_categories` (
 --
 
 INSERT INTO `web_categories` (`id`, `name`) VALUES
-(1, 'Uncategorized'),
-(2, 'Γενικά');
+(1, 'Γενικά');
 
 -- --------------------------------------------------------
 
@@ -51,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `web_reports` (
   `time_submitted` datetime NOT NULL,
   `time_closed` datetime NOT NULL,
   `status` enum('Closed','Open','','') NOT NULL,
-  `submitter_id` int(11) NOT NULL,
+  `submitter_id` int(11),
   `closer_id` int(11) NOT NULL,
   `comment` text NOT NULL,
   PRIMARY KEY (`id`),
@@ -146,7 +145,7 @@ INSERT INTO `web_users` (`user_id`, `user_name`, `user_password_hash`, `user_ema
 -- Περιορισμοί για πίνακα `web_reports`
 --
 ALTER TABLE `web_reports`
-  ADD CONSTRAINT `FK_report_users` FOREIGN KEY (`submitter_id`) REFERENCES `web_users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_report_users` FOREIGN KEY (`submitter_id`) REFERENCES `web_users` (`user_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Περιορισμοί για πίνακα `web_report_details`
